@@ -1,11 +1,10 @@
-import express,{Response,Request} from "express"
+import express from "express"
+import { signup } from "../controllers/auth/controller"
 const Router = express.Router()
 
 
 
-Router.get("/all",(req:Request,res:Response)=>{
-    res.send("Backend maaaaaaaaaaaan")
-})
+Router.post("/signup",signup)
 
 
 export default Router
