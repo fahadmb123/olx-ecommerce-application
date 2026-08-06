@@ -38,8 +38,8 @@ function Signup() {
         <div className="container">
             {auth.loading && (<Loader />)}
             <div className="left">
-                <h1>Join the Marketplace</h1>
-                <p>Create an account to buy and sell products.</p>
+                <h1>Join To My</h1>
+               <h1>OLX</h1>
             </div>
 
             <div className="right">

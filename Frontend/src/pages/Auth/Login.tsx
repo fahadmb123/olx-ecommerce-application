@@ -32,8 +32,8 @@ function Login() {
             <div className="container">
                 {auth.loading && (<Loader />)}
                 <div className="left">
-                    <h1>Welcome Back</h1>
-                    <p>Buy and sell products with ease.</p>
+                    <h1>Welcome To</h1>
+                    <h1>OLX</h1>
                 </div>
 
                 <div className="right">
