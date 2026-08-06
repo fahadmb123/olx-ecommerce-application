@@ -7,7 +7,7 @@ const Router = express.Router()
 
 
 Router.post("/signup",validate(signupSchema),signup)
-
+//Router.post("/login",validate())
 
 
 
