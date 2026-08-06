@@ -1,7 +1,17 @@
-import { Request } from "express"
+import { Request ,Response,NextFunction} from "express"
+import { signupService } from "../../services/authService"
 
-const signup = async (req:Request)=>{
-    console.log(req.body)
+
+const signup = async (req:Request,res:Response,next:NextFunction)=>{
+    try {
+        await signupService(req)
+        return res.status(201).json({
+            success : true,
+            message: "Acount Registered"
+        })
+    } catch (err){
+        next(err)
+    }
 }
 
 
