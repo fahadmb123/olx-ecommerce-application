@@ -1,6 +1,6 @@
 import userModel from "../models/userSchema"
 import type { UserType } from "../models/userSchema"
-import type { User } from "../types/auth"
+import type { loginUserType, User } from "../types/auth"
 import bcrypt from "bcrypt"
 const salt = 10
 
@@ -23,7 +23,20 @@ const signupService = async (data:User) => {
 }
 
 
+const loginService = async (data:loginUserType) => {
+    const isExist = await userModel.findOne({email:data.email})
+
+    if (!isExist) {
+        throw new Error("User doesn't exist")
+    }
+    const isMatch = await bcrypt.compare(data.password,isExist.password as string)
+    if (!isMatch) {
+        throw new Error("Password not matching")
+    }
+}
+
 
 export {
-    signupService
+    signupService,
+    loginService
 }

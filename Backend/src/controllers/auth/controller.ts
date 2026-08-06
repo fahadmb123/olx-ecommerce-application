@@ -1,5 +1,6 @@
 import { Request ,Response,NextFunction} from "express"
-import { signupService } from "../../services/authService"
+import { loginService, signupService } from "../../services/authService"
+import { success } from "zod"
 
 
 const signup = async (req:Request,res:Response,next:NextFunction)=>{
@@ -15,7 +16,20 @@ const signup = async (req:Request,res:Response,next:NextFunction)=>{
 }
 
 
+const login = async (req:Request,res:Response,next:NextFunction) => {
+    try {
+        const result = await loginService(req.body)
+        return res.status(200).json({
+            success:true,
+            message:"Login Successfully",
+            data:result
+        })
+    } catch (err) {
+        next(err)
+    }
+}
 
 export {
-    signup
+    signup,
+    login
 }
