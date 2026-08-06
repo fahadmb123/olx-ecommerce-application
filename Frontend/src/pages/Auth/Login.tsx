@@ -3,7 +3,7 @@ import './Auth.css'
 
 
 
-function Signup() {
+function Login() {
     return (
         <>
             <div className="container">
@@ -48,4 +48,4 @@ function Signup() {
   )
 }
 
-export default Signup
+export default Login
