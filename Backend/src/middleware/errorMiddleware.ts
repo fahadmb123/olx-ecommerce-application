@@ -1,14 +1,12 @@
-import {ErrorRequestHandler, Request,Response,NextFunction } from "express";
+import { Request,Response,NextFunction } from "express";
 
 
 
-const errorMiddleware:ErrorRequestHandler = (err, req, res, next) => {
-
-    res.status(400).json({
+const errorMiddleware = (err:Error, req:Request, res:Response, next:NextFunction) => {
+    res.status(409).json({
         success: false,
         message: err.message
     });
-
 }
 
 export default errorMiddleware

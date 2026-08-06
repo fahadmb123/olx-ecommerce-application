@@ -10,3 +10,10 @@ export type authInitialState = {
     error :string | null,
     loading : boolean
 }
+
+
+export type ErrorResponse = {
+    success : boolean,
+    message : string
+}
+

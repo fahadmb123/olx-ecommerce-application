@@ -1,12 +1,19 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { signupUser } from "./authApi"
-import type { User } from "../../types/auth/authTypes"
+import type { User,ErrorResponse } from "../../types/auth/authTypes"
+import { AxiosError } from "axios"
 
 
+const signupThunk = createAsyncThunk("api/signup",async (data:User,{rejectWithValue})=>{
 
-const signupThunk = createAsyncThunk("api/signup",async (data:User)=>{
-    const response = await signupUser(data)
-    return response.data
+    try {
+        const response = await signupUser(data)
+        return response.data
+    } catch (error) {
+        const err = error as AxiosError<ErrorResponse>
+        return rejectWithValue(err.response?.data.message)
+    }
+    
 
 })
 

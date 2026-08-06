@@ -7,17 +7,29 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signupThunk } from "../../features/auth/authThunk";
 import type { User } from "../../types/auth/authTypes";
 import { useAppDispatch } from "../../hooks/dispatchHook";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 
 function Signup() {
-
+    const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const {register,handleSubmit,formState:{errors}} = useForm<SignupFormData>({
         resolver : zodResolver(signupSchema),mode : "onChange"
     })
 
-    const onSubmit = (data:User)=>{
-        dispatch(signupThunk(data))
+    const onSubmit = async (data:User)=>{
+        try {
+            const result:{message:string,success:boolean} = await dispatch(signupThunk(data)).unwrap()
+            toast.success(result.message)
+            navigate("/login")
+        } catch (error) {
+            toast.error(error as string);
+        }
+            
     }
+
+
     return (
         <div className="container">
             <div className="left">

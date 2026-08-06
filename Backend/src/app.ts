@@ -7,13 +7,13 @@ import errorMiddleware from "./middleware/errorMiddleware";
 
 const app = express()
 
-app.use(errorMiddleware)
+
 app.use(cors())
 app.use(express.json())
-app.use("/api/auth", authRouter);
+app.use("/auth", authRouter);
 
 
-
+app.use(errorMiddleware)
 
 
 export {app}

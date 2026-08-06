@@ -1,4 +1,3 @@
-import { Request } from "express"
 import userModel from "../models/userSchema"
 import type { UserType } from "../models/userSchema"
 import type { User } from "../types/auth"
@@ -6,8 +5,7 @@ import bcrypt from "bcrypt"
 const salt = 10
 
 
-const signupService = async (req:Request) => {
-    const data:User = req.body
+const signupService = async (data:User) => {
     const isExist:UserType | null = await userModel.findOne({email:data.email})
 
     if (isExist) {
@@ -22,7 +20,6 @@ const signupService = async (req:Request) => {
         password:hashPassword,
     })
     await newUser.save()
-    console.log("User Added")
 }
 
 
