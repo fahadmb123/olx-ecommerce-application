@@ -1,8 +1,9 @@
 import "./Auth.css";
 import { Link } from "react-router-dom";
 
-
 function Signup() {
+
+
   return (
     <div className="container">
       <div className="left">
