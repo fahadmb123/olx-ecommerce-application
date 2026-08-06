@@ -2,6 +2,7 @@ import userModel from "../models/userSchema"
 import type { UserType } from "../models/userSchema"
 import type { loginUserType, User } from "../types/auth"
 import bcrypt from "bcrypt"
+import { generateToken } from "../utils/generateTokens"
 const salt = 10
 
 
@@ -32,6 +33,11 @@ const loginService = async (data:loginUserType) => {
     const isMatch = await bcrypt.compare(data.password,isExist.password as string)
     if (!isMatch) {
         throw new Error("Password not matching")
+    }
+    const token = generateToken(isExist.id.toString(),isExist.email)
+    return {
+        user:isExist,
+        token
     }
 }
 
