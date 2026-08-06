@@ -1,6 +1,8 @@
 import { Route, Routes } from "react-router-dom";
-import Signup from "../pages/Auth/Signup";
-import Login from "../pages/Auth/Login";
+import { lazy } from "react";
+const Signup = lazy(()=> import("../pages/Auth/Signup"))
+const Login = lazy(()=> import("../pages/Auth/Login"))
+
 
 
 
