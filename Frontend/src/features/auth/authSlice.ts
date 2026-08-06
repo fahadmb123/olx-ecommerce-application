@@ -18,9 +18,8 @@ const authSlice = createSlice({
             .addCase(signupThunk.pending,(state:authInitialState)=>{
                 state.loading = true
             })
-            .addCase(signupThunk.fulfilled,(state:authInitialState,action:ReturnType<typeof signupThunk.fulfilled>)=>{
+            .addCase(signupThunk.fulfilled,(state:authInitialState)=>{
                 state.loading = false
-                state.user = action.payload
             })
             .addCase(signupThunk.rejected,(state:authInitialState,action:ReturnType<typeof signupThunk.rejected>)=>{
                 state.loading = false

@@ -29,32 +29,37 @@ function Signup() {
                 <h2>Create Account</h2>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
-                <input {...register("name")}
-                    type="text"
-                    placeholder="Full Name"
-                />
+                    
+                    <input {...register("name")}
+                        type="text"
+                        placeholder="Full Name"
+                    />
+                    {errors.name && (<p className="errorMessage">{errors.name?.message}</p>)}
 
-                <input {...register("email")}
-                    type="email"
-                    placeholder="Email Address"
-                />
+                    <input {...register("email")}
+                        type="email"
+                        placeholder="Email Address"
+                    />
+                    {errors.email && (<p className="errorMessage">{errors.email?.message}</p>)}
 
-                <input {...register("password")}
-                    type="password"
-                    placeholder="Password"
-                />
+                    <input {...register("password")}
+                        type="password"
+                        placeholder="Password"
+                    />
+                    {errors.password && (<p className="errorMessage">{errors.password?.message}</p>)}
 
-                <input {...register("confirmPassword")}
-                    type="password"
-                    placeholder="Confirm Password"
-                />
+                    <input {...register("confirmPassword")}
+                        type="password"
+                        placeholder="Confirm Password"
+                    />
+                    {errors.confirmPassword && (<p className="errorMessage">{errors.confirmPassword?.message}</p>)}
 
-                <button type="submit">Create Account</button>
+                    <button type="submit">Create Account</button>
                 </form>
 
                 <p>
-                Already have an account?
-                <Link to="/login"> Login</Link>
+                    Already have an account?
+                    <Link to="/login"> Login</Link>
                 </p>
             </div>
         </div>

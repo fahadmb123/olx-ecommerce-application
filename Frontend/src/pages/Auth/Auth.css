@@ -88,7 +88,7 @@ button:hover{
     background:#01464d;
 }
 
-.right p{
+.right > p{
     margin-top:20px;
     text-align:center;
 }
@@ -97,4 +97,13 @@ a{
     color:#002f34;
     text-decoration:none;
     font-weight:bold;
+}
+.errorMessage{
+    color:#e63946;
+    font-size:13px;
+    margin-top:4px;
+    margin-bottom:10px;
+    text-align:left;
+    font-weight:500;
+    line-height:1.2;
 }
