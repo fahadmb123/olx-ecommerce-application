@@ -1,9 +1,30 @@
 import './Auth.css'
-import { Link } from 'react-router-dom'
-
+import { Link, useNavigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { loginSchema, type LoginFormData } from '../../validation/authSchema'
+import type { loginUserType } from '../../types/auth/authTypes'
+import { toast } from 'react-toastify'
+import { useAppDispatch } from '../../hooks/dispatchHook'
+import { loginThunk } from '../../features/auth/authThunk'
 
 
 function Login() {
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+    const {register,handleSubmit,formState:{errors}} = useForm<LoginFormData>({
+            resolver : zodResolver(loginSchema),mode : "onChange"
+    })
+
+    const onSubmit = async (data:loginUserType)=>{
+        try {
+            const result:{message:string,success:boolean} = await dispatch(loginThunk(data)).unwrap()
+            toast.success(result.message)
+            navigate("/")
+        } catch (error) {
+            toast.error(error as string);
+        }
+    }
     return (
         <>
             <div className="container">
@@ -17,17 +38,19 @@ function Login() {
 
                     <h2>Login</h2>
 
-                    <form>
+                    <form onSubmit={handleSubmit(onSubmit)}>
 
-                        <input
+                        <input  {...register("email")}
                             type="email"
                             placeholder="Email Address"
                         />
+                        {errors.email && (<p className="errorMessage">{errors.email?.message}</p>)}
 
-                        <input
+                        <input {...register("password")}
                             type="password"
                             placeholder="Password"
                         />
+                        {errors.password && (<p className="errorMessage">{errors.password?.message}</p>)}
 
                         <button>
                             Login
