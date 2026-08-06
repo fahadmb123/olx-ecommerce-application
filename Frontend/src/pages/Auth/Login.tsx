@@ -1,5 +1,5 @@
 import './Auth.css'
-
+import { Link } from 'react-router-dom'
 
 
 
@@ -37,7 +37,7 @@ function Login() {
 
                     <p>
                         Don't have an account?
-                        <a href="signup.html">Sign Up</a>
+                        <Link to="/signup">Sign Up</Link>
                     </p>
 
                 </div>
