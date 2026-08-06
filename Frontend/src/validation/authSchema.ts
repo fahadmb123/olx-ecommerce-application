@@ -3,6 +3,11 @@ import {z} from "zod"
 
 export const signupSchema = z.object({
 
+    name: z
+      .string()
+      .trim()
+      .min(3, "Email is required At least 3 letters"),
+
     email: z
       .string()
       .trim()
@@ -22,3 +27,7 @@ export const signupSchema = z.object({
   message: "Passwords do not match",
   path: ["confirmPassword"],
 });
+
+
+
+export type SignupFormData = z.infer<typeof signupSchema>

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { authInitialState } from "../../types/auth/authTypes";
-import {signup} from "./authThunk"
+import {signupThunk} from "./authThunk"
 
 
 const initialState:authInitialState = {
@@ -15,14 +15,14 @@ const authSlice = createSlice({
     reducers : {},
     extraReducers : (builder) => {
         builder
-            .addCase(signup.pending,(state:authInitialState)=>{
+            .addCase(signupThunk.pending,(state:authInitialState)=>{
                 state.loading = true
             })
-            .addCase(signup.fulfilled,(state:authInitialState,action:ReturnType<typeof signup.fulfilled>)=>{
+            .addCase(signupThunk.fulfilled,(state:authInitialState,action:ReturnType<typeof signupThunk.fulfilled>)=>{
                 state.loading = false
                 state.user = action.payload
             })
-            .addCase(signup.rejected,(state:authInitialState,action:ReturnType<typeof signup.rejected>)=>{
+            .addCase(signupThunk.rejected,(state:authInitialState,action:ReturnType<typeof signupThunk.rejected>)=>{
                 state.loading = false
                 state.error = (action.payload as string) || "Signup Failed";
             })

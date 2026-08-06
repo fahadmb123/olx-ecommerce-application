@@ -4,7 +4,7 @@ import type { User } from "../../types/auth/authTypes"
 
 
 const signupUser = async (data:User)=>{
-    return axios.post("api/auth/signup",data)
+    return axios.post("http://localhost:5000/api/auth/signup",data)
 }
 
 
