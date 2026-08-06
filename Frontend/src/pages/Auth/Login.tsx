@@ -5,8 +5,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { loginSchema, type LoginFormData } from '../../validation/authSchema'
 import type { loginUserType } from '../../types/auth/authTypes'
 import { toast } from 'react-toastify'
-import { useAppDispatch } from '../../hooks/dispatchHook'
+import { useAppDispatch,useAppSelector } from '../../hooks/dispatchHook'
 import { loginThunk } from '../../features/auth/authThunk'
+import Loader from '../../components/Loader/Loader'
 
 
 function Login() {
@@ -15,6 +16,7 @@ function Login() {
     const {register,handleSubmit,formState:{errors}} = useForm<LoginFormData>({
             resolver : zodResolver(loginSchema),mode : "onChange"
     })
+    const auth = useAppSelector((state)=>state.auth)
 
     const onSubmit = async (data:loginUserType)=>{
         try {
@@ -28,7 +30,7 @@ function Login() {
     return (
         <>
             <div className="container">
-
+                {auth.loading && (<Loader />)}
                 <div className="left">
                     <h1>Welcome Back</h1>
                     <p>Buy and sell products with ease.</p>
