@@ -6,9 +6,11 @@ import { signupSchema } from "../../validation/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupThunk } from "../../features/auth/authThunk";
 import type { User } from "../../types/auth/authTypes";
-import { useAppDispatch } from "../../hooks/dispatchHook";
+import { useAppDispatch, useAppSelector } from "../../hooks/dispatchHook";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../components/Loader/Loader";
+
 
 
 function Signup() {
@@ -17,7 +19,8 @@ function Signup() {
     const {register,handleSubmit,formState:{errors}} = useForm<SignupFormData>({
         resolver : zodResolver(signupSchema),mode : "onChange"
     })
-
+    const auth = useAppSelector((state)=>state.auth)
+   
     const onSubmit = async (data:User)=>{
         try {
             const result:{message:string,success:boolean} = await dispatch(signupThunk(data)).unwrap()
@@ -31,7 +34,9 @@ function Signup() {
 
 
     return (
+        
         <div className="container">
+            {auth.loading && (<Loader />)}
             <div className="left">
                 <h1>Join the Marketplace</h1>
                 <p>Create an account to buy and sell products.</p>
