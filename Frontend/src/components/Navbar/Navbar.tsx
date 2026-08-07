@@ -1,16 +1,18 @@
 import "./Navbar.css"
+import { NavLink } from "react-router-dom";
 
 
 function Navbar(){
+    
     return (
         <>
             <nav className="navbar">
                 <h2>OLX</h2>
 
                 <div className="nav-links">
-                    <button>Sell</button>
-                    <button>Cart</button>
-                    <button>Logout</button>
+                    <NavLink to="/sell">Sell</NavLink>
+                    <NavLink to="/cart">Cart</NavLink>
+                    <NavLink to="/lougout">Logout</NavLink>
                 </div>
             </nav>
         </>
