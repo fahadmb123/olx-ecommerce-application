@@ -32,7 +32,6 @@ const checkAuthThunk = createAsyncThunk("api/checkAuth",async (_,{rejectWithValu
         return response.data
     } catch (error) {
         const err = error as AxiosError<ErrorResponse>
-        console.log(err.response?.data.message)
         return rejectWithValue(err.response?.data.message)
     }
 })

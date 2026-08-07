@@ -44,8 +44,6 @@ const loginService = async (data:loginUserType) => {
 const checkAuthService = async (req:Request) => {
     
     const token = req.cookies.token
-    /*console.log("COOKIE:", req.cookies);
-    console.log("TOKEN:", req.cookies?.token);*/
     if (!token) {
         
         throw new Error("Authentication required");
