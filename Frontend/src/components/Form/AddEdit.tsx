@@ -1,6 +1,22 @@
+import { useForm } from "react-hook-form";
 import "./AddEdit.css";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { productSchema, type ProductFormData } from "../../validation/productSchema";
 
 function AddEdit() {
+
+    const {register,handleSubmit,formState:{errors}} = useForm<ProductFormData>({
+        resolver : zodResolver(productSchema),mode : "onChange"
+    })
+
+    const onSubmit = async (data:any)=>{
+        try {
+            console.log("Error")
+        } catch (error) {
+            console.log("Error",error)
+        }
+            
+    }
     return (
         <div className="add-edit-page">
 
