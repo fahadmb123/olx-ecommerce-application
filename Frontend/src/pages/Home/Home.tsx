@@ -5,18 +5,6 @@ import "./Home.css"
 function Home () {
     return (
         <>
-            
-            <nav className="navbar">
-                <h2>OLX Clone</h2>
-
-                <div className="nav-links">
-                    <button>Sell</button>
-                    <button>Cart</button>
-                    <button>Logout</button>
-                </div>
-            </nav>
-
-            
             <section className="filter-section">
 
                 <select>

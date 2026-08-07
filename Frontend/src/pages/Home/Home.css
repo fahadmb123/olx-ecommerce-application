@@ -17,47 +17,6 @@ body {
 }
 
 
-/* ================= NAVBAR ================= */
-
-.navbar {
-    width: 100%;
-    background: #002f34;
-    color: white;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    padding: 18px 60px;
-}
-
-.navbar h2 {
-    font-size: 28px;
-}
-
-.nav-links {
-    display: flex;
-    gap: 15px;
-}
-
-.nav-links button {
-    padding: 12px 25px;
-
-    border: none;
-    border-radius: 6px;
-
-    background: #23e5db;
-    color: #002f34;
-
-    cursor: pointer;
-
-    font-weight: bold;
-    font-size: 16px;
-}
-
-.nav-links button:hover {
-    background: white;
-}
 
 
 /* ================= FILTER ================= */
@@ -264,9 +223,6 @@ body {
 
 @media (max-width: 800px) {
 
-    .navbar {
-        padding: 18px 30px;
-    }
 
     .products {
         grid-template-columns: repeat(2, 1fr);
@@ -288,25 +244,9 @@ body {
 
 @media (max-width: 550px) {
 
-    .navbar {
-        padding: 18px 20px;
+    
 
-        flex-direction: column;
-        gap: 15px;
-    }
 
-    .navbar h2 {
-        font-size: 24px;
-    }
-
-    .nav-links {
-        gap: 8px;
-    }
-
-    .nav-links button {
-        padding: 9px 14px;
-        font-size: 13px;
-    }
 
     .filter-section {
         margin: 25px 20px;
