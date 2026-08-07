@@ -7,7 +7,7 @@ const Home = lazy(()=> import("../pages/Home/Home"))
 const Sell = lazy(()=> import("../pages/Sell/Sell"))
 const Cart = lazy(()=> import("../pages/Cart/Cart"))
 const Checkout = lazy(()=> import("../pages/Checkout/Checkout"))
-
+const ProductDetails = lazy(()=> import("../pages/ProductDetails/ProductDetails"))
 
 
 function AppRoutes () {
@@ -20,6 +20,7 @@ function AppRoutes () {
                 <Route path="sell" element={<Sell />}/>
                 <Route path="cart" element={<Cart />}/>
                 <Route path="checkout" element={<Checkout />}/>
+                <Route path="details" element={<ProductDetails />}/>
             </Route>
         </Routes>
     )
