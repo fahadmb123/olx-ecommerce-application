@@ -1,0 +1,203 @@
+/* ================= PAGE ================= */
+
+.add-edit-page {
+    width: 100%;
+    min-height: calc(100vh - 80px);
+
+    padding: 40px 60px 60px;
+
+    background: #f2f4f5;
+}
+
+
+/* ================= CARD ================= */
+
+.add-edit-card {
+    width: 100%;
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    background: white;
+
+    padding: 35px 40px;
+
+    border-radius: 12px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ================= HEADING ================= */
+
+.add-edit-card h1 {
+    color: #002f34;
+
+    font-size: 30px;
+
+    margin-bottom: 8px;
+}
+
+.add-edit-subtitle {
+    color: #666;
+
+    font-size: 16px;
+
+    margin-bottom: 30px;
+}
+
+
+/* ================= FORM ================= */
+
+.add-edit-form {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+
+/* ================= FORM GROUP ================= */
+
+.add-edit-form-group {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.add-edit-form-group label {
+    color: #002f34;
+
+    font-size: 15px;
+
+    font-weight: bold;
+}
+
+
+/* ================= INPUTS ================= */
+
+.add-edit-form-group input,
+.add-edit-form-group textarea,
+.add-edit-form-group select {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 7px;
+
+    outline: none;
+
+    background: white;
+
+    font-size: 15px;
+
+    color: #333;
+}
+
+.add-edit-form-group textarea {
+    resize: vertical;
+
+    min-height: 120px;
+}
+
+
+/* ================= FOCUS ================= */
+
+.add-edit-form-group input:focus,
+.add-edit-form-group textarea:focus,
+.add-edit-form-group select:focus {
+    border-color: #23e5db;
+
+    box-shadow: 0 0 0 2px rgba(35, 229, 219, 0.15);
+}
+
+
+/* ================= PRICE + CATEGORY ================= */
+
+.add-edit-form-row {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 20px;
+}
+
+
+/* ================= BUTTON ================= */
+
+.add-edit-submit {
+    width: 200px;
+
+    padding: 14px;
+
+    margin-top: 5px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #002f34;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.add-edit-submit:hover {
+    background: #01464d;
+}
+
+
+/* ================= TABLET ================= */
+
+@media (max-width: 900px) {
+
+    .add-edit-page {
+        padding: 30px;
+    }
+
+    .add-edit-card {
+        padding: 30px;
+    }
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 600px) {
+
+    .add-edit-page {
+        padding: 20px 15px 40px;
+    }
+
+    .add-edit-card {
+        padding: 25px 20px;
+    }
+
+    .add-edit-card h1 {
+        font-size: 25px;
+    }
+
+    .add-edit-form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .add-edit-submit {
+        width: 100%;
+    }
+}
