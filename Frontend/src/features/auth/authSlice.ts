@@ -15,13 +15,13 @@ const authSlice = createSlice({
     reducers : {},
     extraReducers : (builder) => {
         builder
-            .addCase(signupThunk.pending,(state:authInitialState)=>{
+            .addCase(signupThunk.pending,(state)=>{
                 state.loading = true
             })
-            .addCase(signupThunk.fulfilled,(state:authInitialState)=>{
+            .addCase(signupThunk.fulfilled,(state)=>{
                 state.loading = false
             })
-            .addCase(signupThunk.rejected,(state:authInitialState)=>{
+            .addCase(signupThunk.rejected,(state)=>{
                 state.loading = false
             })
             .addCase(loginThunk.pending,(state)=>{
@@ -37,6 +37,14 @@ const authSlice = createSlice({
             })
             .addCase(checkAuthThunk.pending,(state)=>{
                 state.loading = true
+            })
+            .addCase(loginThunk.fulfilled,(state,action)=>{
+                state.loading = false
+                state.user = action.payload.user
+                state.isAuthenticated = true
+            })
+            .addCase(loginThunk.rejected,(state)=>{
+                state.loading = false
             })
     }
 })
