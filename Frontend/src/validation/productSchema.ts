@@ -19,15 +19,17 @@ export const productSchema = z.object({
     .number()
     .positive("Price must be greater than 0"),
 
-  productImage: z
-    .instanceof(File, { message: "Product image is required" })
+  image: z
+    .instanceof(FileList)
+    .refine((files) => files.length > 0, "Product image is required")
     .refine(
-      (file) => file.size <= 5 * 1024 * 1024,
-      "Image must be less than 5MB"
+        (files) => files[0]?.size <= 5 * 1024 * 1024,
+        "Image must be less than 5MB"
     )
     .refine(
-      (file) => ["image/jpeg", "image/png", "image/webp"].includes(file.type),
-      "Only JPEG, PNG and WebP images are allowed"
+        (files) =>
+        ["image/jpeg", "image/png", "image/webp"].includes(files[0]?.type),
+        "Only JPEG, PNG and WebP images are allowed"
     ),
 });
 

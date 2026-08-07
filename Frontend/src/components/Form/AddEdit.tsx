@@ -3,17 +3,25 @@ import "./AddEdit.css";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { productSchema, type ProductFormData } from "../../validation/productSchema";
 
+
 function AddEdit() {
 
     const {register,handleSubmit,formState:{errors}} = useForm<ProductFormData>({
         resolver : zodResolver(productSchema),mode : "onChange"
     })
 
-    const onSubmit = async (data:any)=>{
+    const onSubmit = async (data:ProductFormData)=>{
         try {
-            console.log("Error")
+            const formData = new FormData();
+
+            formData.append("title", data.title);
+            formData.append("description", data.description)
+            formData.append("price", String(data.price))
+            formData.append("productImage", data.image[0])
+
+            
         } catch (error) {
-            console.log("Error",error)
+            console.log("Error",error,errors)
         }
             
     }
@@ -28,26 +36,29 @@ function AddEdit() {
                     Add your product and start selling.
                 </p>
 
-                <form className="add-edit-form">
+                <form onSubmit={handleSubmit(onSubmit)} className="add-edit-form">
 
                     <div className="add-edit-form-group">
                         <label>Product Title</label>
 
-                        <input
+                        <input {...register("title")}
                             type="text"
                             placeholder="Enter product title"
                         />
+                        
                     </div>
+                    {errors.title && (<p className="auth-error">{errors.title.message}</p>)}
 
 
                     <div className="add-edit-form-group">
                         <label>Description</label>
 
-                        <textarea
+                        <textarea {...register("description")}
                             placeholder="Describe your product"
                             rows={5}
                         />
                     </div>
+                    {errors.description && (<p className="auth-error">{errors.description.message}</p>)}
 
 
                     <div className="add-edit-form-row">
@@ -55,22 +66,19 @@ function AddEdit() {
                         <div className="add-edit-form-group">
                             <label>Price</label>
 
-                            <input
+                            <input {...register("price",{valueAsNumber:true})}
                                 type="number"
                                 placeholder="Enter price"
                             />
                         </div>
+                        
 
 
                         <div className="add-edit-form-group">
                             <label>Category</label>
 
                             <select defaultValue="">
-                                <option value="" disabled>
-                                    Select Category
-                                </option>
-
-                                <option value="Mobile">
+                                <option selected value="Mobile">
                                     Mobile
                                 </option>
 
@@ -93,16 +101,18 @@ function AddEdit() {
                         </div>
 
                     </div>
+                    {errors.price && (<p className="auth-error">{errors.price.message}</p>)}
 
 
                     <div className="add-edit-form-group">
                         <label>Product Image</label>
 
-                        <input
+                        <input {...register("image")}
                             type="file"
-                            accept="image/*"
+                            accept="image/jpeg,image/png,image/webp"
                         />
                     </div>
+                    {errors.image && (<p className="auth-error">{errors.image.message}</p>)}
 
 
                     <button

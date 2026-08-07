@@ -1,4 +1,18 @@
 /* ================= PAGE ================= */
+.auth-error {
+    color: #e63946;
+
+    font-size: 13px;
+
+    margin-top: -10px;
+
+    margin-bottom: 10px;
+
+    line-height: 1.2;
+
+    font-weight: 500;
+}
+
 
 .add-edit-page {
     width: 100%;
