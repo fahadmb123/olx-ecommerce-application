@@ -10,9 +10,10 @@ function Navbar(){
                 <h2>OLX</h2>
 
                 <div className="nav-links">
-                    <NavLink to="/sell">Sell</NavLink>
-                    <NavLink to="/cart">Cart</NavLink>
-                    <NavLink to="/lougout">Logout</NavLink>
+                    <NavLink className={({ isActive }) => isActive ? "active-link" : ""} to="/">Home</NavLink>
+                    <NavLink className={({ isActive }) => isActive ? "active-link" : ""} to="/sell">Sell</NavLink>
+                    <NavLink className={({ isActive }) => isActive ? "active-link" : ""} to="/cart">Cart</NavLink>
+                    <NavLink className={({ isActive }) => isActive ? "active-link" : ""} to="/lougout">Logout</NavLink>
                 </div>
             </nav>
         </>

@@ -60,7 +60,10 @@
 .nav-links button:hover {
     background: white;
 }
-
+.nav-links .active-link {
+    background: rgb(203, 207, 212);
+    
+}
 
 @media (max-width: 800px) {
 
