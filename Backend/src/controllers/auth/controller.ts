@@ -1,5 +1,5 @@
 import { Request ,Response,NextFunction} from "express"
-import { loginService, signupService } from "../../services/authService"
+import { checkAuthService, loginService, signupService } from "../../services/authService"
 import { success } from "zod"
 
 
@@ -18,10 +18,34 @@ const signup = async (req:Request,res:Response,next:NextFunction)=>{
 
 const login = async (req:Request,res:Response,next:NextFunction) => {
     try {
-        const result = await loginService(req.body)
+        const {user,token} = await loginService(req.body)
+        console.log(token)
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: false,
+            sameSite: "lax",
+            maxAge: 24 * 60 * 60 * 1000
+        })
+
         return res.status(200).json({
             success:true,
             message:"Login Successfully",
+            user
+        })
+    } catch (err) {
+        next(err)
+    }
+}
+
+
+const checkAuth = async (req:Request,res:Response,next:NextFunction) => {
+    try {
+        
+        const result = await checkAuthService(req)
+        
+        return res.status(200).json({
+            success:true,
+            message:"Authentication Success",
             user:result
         })
     } catch (err) {
@@ -29,7 +53,10 @@ const login = async (req:Request,res:Response,next:NextFunction) => {
     }
 }
 
+
+
 export {
     signup,
-    login
+    login,
+    checkAuth
 }

@@ -38,12 +38,12 @@ const authSlice = createSlice({
             .addCase(checkAuthThunk.pending,(state)=>{
                 state.loading = true
             })
-            .addCase(loginThunk.fulfilled,(state,action)=>{
+            .addCase(checkAuthThunk.fulfilled,(state,action)=>{
                 state.loading = false
                 state.user = action.payload.user
                 state.isAuthenticated = true
             })
-            .addCase(loginThunk.rejected,(state)=>{
+            .addCase(checkAuthThunk.rejected,(state)=>{
                 state.loading = false
             })
     }
