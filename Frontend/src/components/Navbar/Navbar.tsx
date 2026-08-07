@@ -1,14 +1,18 @@
+import { toast } from "react-toastify";
 import { logoutThunk } from "../../features/auth/authThunk";
 import { useAppDispatch, useAppSelector } from "../../hooks/dispatchHook";
 import "./Navbar.css"
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 
 function Navbar(){
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
     const isAuth = useAppSelector((state)=>state.auth.isAuthenticated)
-    const handleLogout = ()=>{
-        dispatch(logoutThunk())
+    const handleLogout = async ()=>{
+        await dispatch(logoutThunk())
+        navigate("/login")
+        toast.success("Logged Out")
     }
     return (
         <>

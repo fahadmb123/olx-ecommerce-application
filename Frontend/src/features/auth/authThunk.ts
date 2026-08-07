@@ -39,6 +39,7 @@ const checkAuthThunk = createAsyncThunk("api/checkAuth",async (_,{rejectWithValu
 const logoutThunk = createAsyncThunk("api/logout",async (_,{rejectWithValue})=>{
     try {
         const response = await logout()
+        console.log(response.data)
         return response.data
     } catch (error) {
         const err = error as AxiosError<ErrorResponse>

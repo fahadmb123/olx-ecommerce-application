@@ -1,109 +1,247 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
+/* =====================================================
+   AUTH PAGE
+===================================================== */
+
+.auth-page {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px 20px;
+
+    background: #f2f4f5;
 }
 
-body{
-    background:#f2f4f5;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
+
+/* =====================================================
+   AUTH CONTAINER
+===================================================== */
+
+.auth-container {
+    width: 900px;
+    max-width: 100%;
+
+    display: flex;
+
+    background: white;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
 }
 
-.container{
-    width:900px;
-    display:flex;
-    border-radius:12px;
-    overflow:hidden;
-    background:#fff;
-    box-shadow:0 15px 40px rgba(0,0,0,.15);
+
+/* =====================================================
+   LEFT SIDE
+===================================================== */
+
+.auth-left {
+    width: 45%;
+
+    background: #002f34;
+
+    color: white;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: column;
+
+    padding: 40px;
 }
 
-.left{
-    width:45%;
-    background:#002f34;
-    color:white;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    padding:40px;
+.auth-left h1 {
+    font-size: 42px;
+
+    margin-bottom: 15px;
+
+    text-align: center;
 }
 
-.left h1{
-    font-size:42px;
-    margin-bottom:15px;
+
+/* =====================================================
+   RIGHT SIDE
+===================================================== */
+
+.auth-right {
+    width: 55%;
+
+    padding: 50px;
 }
 
-.left p{
-    font-size:18px;
-    text-align:center;
-    line-height:28px;
+.auth-right h2 {
+    text-align: center;
+
+    color: #002f34;
+
+    font-size: 28px;
+
+    margin-bottom: 30px;
 }
 
-.right{
-    width:55%;
-    padding:50px;
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.auth-right form {
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
 }
 
-.right h2{
-    text-align:center;
-    margin-bottom:30px;
-    color:#002f34;
+
+/* =====================================================
+   INPUT
+===================================================== */
+
+.auth-right input {
+    width: 100%;
+
+    padding: 15px;
+
+    margin-bottom: 18px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 8px;
+
+    outline: none;
+
+    font-size: 16px;
+
+    background: white;
 }
 
-form{
-    display:flex;
-    flex-direction:column;
+.auth-right input:focus {
+    border-color: #23e5db;
 }
 
-input{
-    padding:15px;
-    margin-bottom:18px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    font-size:16px;
-    outline:none;
+
+/* =====================================================
+   ERROR MESSAGE
+===================================================== */
+
+.auth-error {
+    color: #e63946;
+
+    font-size: 13px;
+
+    margin-top: -10px;
+
+    margin-bottom: 10px;
+
+    line-height: 1.2;
+
+    font-weight: 500;
 }
 
-input:focus{
-    border:1px solid #23e5db;
+
+/* =====================================================
+   BUTTON
+===================================================== */
+
+.auth-right button {
+    width: 100%;
+
+    padding: 15px;
+
+    background: #002f34;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 17px;
+
+    font-weight: 500;
+
+    transition: 0.3s;
 }
 
-button{
-    padding:15px;
-    background:#002f34;
-    color:white;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-    font-size:17px;
-    transition:.3s;
+.auth-right button:hover {
+    background: #01464d;
 }
 
-button:hover{
-    background:#01464d;
+
+/* =====================================================
+   BOTTOM TEXT
+===================================================== */
+
+.auth-right > p {
+    margin-top: 20px;
+
+    text-align: center;
+
+    font-size: 15px;
 }
 
-.right > p{
-    margin-top:20px;
-    text-align:center;
+
+/* =====================================================
+   LINK
+===================================================== */
+
+.auth-right a {
+    color: #002f34;
+
+    text-decoration: none;
+
+    font-weight: bold;
 }
 
-a{
-    color:#002f34;
-    text-decoration:none;
-    font-weight:bold;
+.auth-right a:hover {
+    text-decoration: underline;
 }
-.errorMessage{
-    color:#e63946;
-    font-size:13px;
-    margin-top:4px;
-    margin-bottom:10px;
-    text-align:left;
-    font-weight:500;
-    line-height:1.2;
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .auth-page {
+        padding: 20px;
+    }
+
+    .auth-container {
+        width: 100%;
+
+        flex-direction: column;
+    }
+
+    .auth-left {
+        width: 100%;
+
+        padding: 30px 20px;
+    }
+
+    .auth-left h1 {
+        font-size: 32px;
+
+        margin-bottom: 8px;
+    }
+
+    .auth-right {
+        width: 100%;
+
+        padding: 35px 25px;
+    }
+
+    .auth-right h2 {
+        font-size: 25px;
+    }
 }

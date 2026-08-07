@@ -64,6 +64,8 @@ const checkAuthService = async (req:Request) => {
     return user;
 }
 
+
+
 export {
     signupService,
     loginService,

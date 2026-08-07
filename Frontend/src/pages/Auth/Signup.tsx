@@ -34,52 +34,67 @@ function Signup() {
 
 
     return (
-        
-        <div className="container">
-            {auth.loading && (<Loader />)}
-            <div className="left">
-                <h1>Join To My</h1>
-               <h1>OLX</h1>
+
+        <div className="auth-page">
+            {auth.loading && <Loader />}
+            <div className="auth-container">
+
+                <div className="auth-left">
+                    <h1>Join To My</h1>
+                    <h1>OLX</h1>
+                </div>
+
+                <div className="auth-right">
+                    <h2>Create Account</h2>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+
+                        <input
+                            {...register("name")}
+                            type="text"
+                            placeholder="Full Name"
+                        />
+                        {errors.name && (<p className="auth-error">{errors.name.message}</p>)}
+
+
+                        <input
+                            {...register("email")}
+                            type="email"
+                            placeholder="Email Address"
+                        />
+
+                        {errors.email && (<p className="auth-error"> {errors.email.message}</p>)}
+
+
+                        <input
+                            {...register("password")}
+                            type="password"
+                            placeholder="Password"
+                        />
+                        {errors.password && (<p className="auth-error">{errors.password.message}</p>)}
+
+
+                        <input
+                            {...register("confirmPassword")}
+                            type="password"
+                            placeholder="Confirm Password"
+                        />
+                        {errors.confirmPassword && (<p className="auth-error">{errors.confirmPassword.message}</p>)}
+
+                        <button type="submit">
+                            Create Account
+                        </button>
+
+                    </form>
+                    <p>
+                        Already have an account?
+                        <Link to="/login">{" "}Login</Link>
+                    </p>
+                </div>
+
             </div>
 
-            <div className="right">
-                <h2>Create Account</h2>
-
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    
-                    <input {...register("name")}
-                        type="text"
-                        placeholder="Full Name"
-                    />
-                    {errors.name && (<p className="errorMessage">{errors.name?.message}</p>)}
-
-                    <input {...register("email")}
-                        type="email"
-                        placeholder="Email Address"
-                    />
-                    {errors.email && (<p className="errorMessage">{errors.email?.message}</p>)}
-
-                    <input {...register("password")}
-                        type="password"
-                        placeholder="Password"
-                    />
-                    {errors.password && (<p className="errorMessage">{errors.password?.message}</p>)}
-
-                    <input {...register("confirmPassword")}
-                        type="password"
-                        placeholder="Confirm Password"
-                    />
-                    {errors.confirmPassword && (<p className="errorMessage">{errors.confirmPassword?.message}</p>)}
-
-                    <button type="submit">Create Account</button>
-                </form>
-
-                <p>
-                    Already have an account?
-                    <Link to="/login"> Login</Link>
-                </p>
-            </div>
         </div>
+
     );
 }
 

@@ -28,49 +28,57 @@ function Login() {
         }
     }
     return (
-        <>
-            <div className="container">
-                {auth.loading && (<Loader />)}
-                <div className="left">
+
+        <div className="auth-page">
+
+            {auth.loading && <Loader />}
+
+            <div className="auth-container">
+                <div className="auth-left">
                     <h1>Welcome To</h1>
                     <h1>OLX</h1>
                 </div>
 
-                <div className="right">
 
+                <div className="auth-right">
                     <h2>Login</h2>
-
                     <form onSubmit={handleSubmit(onSubmit)}>
 
-                        <input  {...register("email")}
+                        <input
+                            {...register("email")}
                             type="email"
                             placeholder="Email Address"
                         />
-                        {errors.email && (<p className="errorMessage">{errors.email?.message}</p>)}
+                        {errors.email && (<p className="auth-error">{errors.email.message}</p>
+                        )}
 
-                        <input {...register("password")}
+
+
+                        <input
+                            {...register("password")}
                             type="password"
                             placeholder="Password"
                         />
-                        {errors.password && (<p className="errorMessage">{errors.password?.message}</p>)}
+                        {errors.password && (<p className="auth-error">{errors.password.message}</p>)}
 
-                        <button>
+                        <button type="submit">
                             Login
                         </button>
 
                     </form>
-
                     <p>
                         Don't have an account?
-                        <Link to="/signup">Sign Up</Link>
+                        <Link to="/signup">{" "}Sign Up</Link>
                     </p>
+
 
                 </div>
 
             </div>
 
-        </>
-  )
+        </div>
+
+    );
 }
 
 export default Login

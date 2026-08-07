@@ -40,13 +40,25 @@ const login = async (req:Request,res:Response,next:NextFunction) => {
 
 const checkAuth = async (req:Request,res:Response,next:NextFunction) => {
     try {
-        
         const result = await checkAuthService(req)
-        
+
         return res.status(200).json({
             success:true,
             message:"Authentication Success",
             user:result
+        })
+    } catch (err) {
+        next(err)
+    }
+}
+
+const logout = async (req:Request,res:Response,next:NextFunction) => {
+    try {
+        res.clearCookie("token")
+        
+        return res.status(200).json({
+            success:true,
+            message:"Logged Out"
         })
     } catch (err) {
         next(err)
@@ -58,5 +70,6 @@ const checkAuth = async (req:Request,res:Response,next:NextFunction) => {
 export {
     signup,
     login,
-    checkAuth
+    checkAuth,
+    logout
 }
