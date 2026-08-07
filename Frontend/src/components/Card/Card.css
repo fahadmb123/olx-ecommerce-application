@@ -1,0 +1,115 @@
+/* ================= DETAILS ================= */
+
+.details {
+    padding: 18px;
+}
+
+.details h2 {
+    color: #002f34;
+
+    font-size: 25px;
+
+    margin-bottom: 10px;
+}
+
+.details h3 {
+    font-size: 20px;
+
+    margin-bottom: 8px;
+}
+
+.details p {
+    color: #666;
+
+    margin-bottom: 6px;
+
+    font-size: 16px;
+}
+
+
+
+/* ================= BUTTONS ================= */
+
+.buttons {
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: 20px;
+}
+
+.view,
+.cart {
+    flex: 1;
+
+    padding: 11px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.view {
+    background: #002f34;
+    color: white;
+}
+
+.cart {
+    background: #23e5db;
+    color: #002f34;
+}
+
+.view:hover {
+    background: #01464d;
+}
+
+.cart:hover {
+    background: #00cfc3;
+}
+
+
+
+/* ================= CARD ================= */
+
+.card {
+    background: white;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+
+/* ================= IMAGE ================= */
+
+.card img {
+    width: 100%;
+    height: 230px;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+@media (max-width: 550px) {
+
+
+
+    .card img {
+        height: 220px;
+    }
+}
