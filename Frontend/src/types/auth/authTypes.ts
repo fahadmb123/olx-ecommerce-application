@@ -7,7 +7,8 @@ export type User = {
 export type authInitialState = {
     user : User | null,
     isAuthenticated : boolean,
-    loading : boolean
+    loading : boolean,
+    checkingAuth : boolean
 }
 
 

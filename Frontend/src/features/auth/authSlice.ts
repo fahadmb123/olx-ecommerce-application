@@ -6,7 +6,8 @@ import {checkAuthThunk, loginThunk, logoutThunk, signupThunk} from "./authThunk"
 const initialState:authInitialState = {
     user : null,
     isAuthenticated:false,
-    loading : false
+    loading : false,
+    checkingAuth : true
 }
 
 const authSlice = createSlice({
@@ -37,14 +38,17 @@ const authSlice = createSlice({
             })
             .addCase(checkAuthThunk.pending,(state)=>{
                 state.loading = true
+                state.checkingAuth = true
             })
             .addCase(checkAuthThunk.fulfilled,(state,action)=>{
                 state.loading = false
                 state.user = action.payload.user
                 state.isAuthenticated = true
+                state.checkingAuth = false
             })
             .addCase(checkAuthThunk.rejected,(state)=>{
                 state.loading = false
+                state.checkingAuth = false
             })
             .addCase(logoutThunk.fulfilled,(state)=>{
                 state.loading = false

@@ -6,7 +6,7 @@ function PublicRoute() {
     const isAuthenticated = useAppSelector(
         (state) => state.auth.isAuthenticated
     );
-    console.log("isAuthenticated From Public-----",isAuthenticated)
+    
     if (isAuthenticated) {
         console.log("Worked")
         return <Navigate to="/" replace />;
