@@ -1,0 +1,350 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+html,
+body,
+#root {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    background: #f2f4f5;
+}
+
+
+/* ================= NAVBAR ================= */
+
+.navbar {
+    width: 100%;
+    background: #002f34;
+    color: white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 18px 60px;
+}
+
+.navbar h2 {
+    font-size: 28px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+}
+
+.nav-links button {
+    padding: 12px 25px;
+
+    border: none;
+    border-radius: 6px;
+
+    background: #23e5db;
+    color: #002f34;
+
+    cursor: pointer;
+
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.nav-links button:hover {
+    background: white;
+}
+
+
+/* ================= FILTER ================= */
+
+.filter-section {
+    width: fit-content;
+
+    margin: 35px 0 35px 60px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-section select {
+    width: 220px;
+
+    padding: 14px;
+
+    border: 1px solid #ccc;
+    border-radius: 7px;
+
+    outline: none;
+
+    font-size: 16px;
+
+    background: white;
+
+    cursor: pointer;
+}
+
+.filter-section select:focus {
+    border-color: #23e5db;
+}
+
+.filter-section button {
+    padding: 14px 25px;
+
+    background: #002f34;
+    color: white;
+
+    border: none;
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.filter-section button:hover {
+    background: #01464d;
+}
+
+
+/* ================= HEADING ================= */
+
+.heading {
+    width: calc(100% - 120px);
+    max-width: 1400px;
+
+    margin: 0 auto 25px;
+}
+
+.heading h2 {
+    color: #002f34;
+    font-size: 28px;
+}
+
+
+/* ================= PRODUCTS ================= */
+
+.products {
+    width: calc(100% - 120px);
+    max-width: 1400px;
+
+    margin: 0 auto 50px;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 25px;
+}
+
+
+/* ================= CARD ================= */
+
+.card {
+    background: white;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+
+/* ================= IMAGE ================= */
+
+.card img {
+    width: 100%;
+    height: 230px;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+/* ================= DETAILS ================= */
+
+.details {
+    padding: 18px;
+}
+
+.details h2 {
+    color: #002f34;
+
+    font-size: 25px;
+
+    margin-bottom: 10px;
+}
+
+.details h3 {
+    font-size: 20px;
+
+    margin-bottom: 8px;
+}
+
+.details p {
+    color: #666;
+
+    margin-bottom: 6px;
+
+    font-size: 16px;
+}
+
+
+/* ================= BUTTONS ================= */
+
+.buttons {
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: 20px;
+}
+
+.view,
+.cart {
+    flex: 1;
+
+    padding: 11px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.view {
+    background: #002f34;
+    color: white;
+}
+
+.cart {
+    background: #23e5db;
+    color: #002f34;
+}
+
+.view:hover {
+    background: #01464d;
+}
+
+.cart:hover {
+    background: #00cfc3;
+}
+
+
+/* ================= TABLET ================= */
+
+@media (max-width: 1100px) {
+
+    .products {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+
+/* ================= SMALL TABLET ================= */
+
+@media (max-width: 800px) {
+
+    .navbar {
+        padding: 18px 30px;
+    }
+
+    .products {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .filter-section {
+        margin-left: 30px;
+    }
+
+    .heading,
+    .products {
+        width: calc(100% - 60px);
+    }
+
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 550px) {
+
+    .navbar {
+        padding: 18px 20px;
+
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .navbar h2 {
+        font-size: 24px;
+    }
+
+    .nav-links {
+        gap: 8px;
+    }
+
+    .nav-links button {
+        padding: 9px 14px;
+        font-size: 13px;
+    }
+
+    .filter-section {
+        margin: 25px 20px;
+
+        width: calc(100% - 40px);
+
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-section select {
+        width: 100%;
+    }
+
+    .filter-section button {
+        width: 100%;
+    }
+
+    .heading {
+        width: calc(100% - 40px);
+
+        margin-bottom: 20px;
+    }
+
+    .heading h2 {
+        font-size: 24px;
+    }
+
+    .products {
+        width: calc(100% - 40px);
+
+        grid-template-columns: 1fr;
+
+        gap: 20px;
+    }
+
+    .card img {
+        height: 220px;
+    }
+}

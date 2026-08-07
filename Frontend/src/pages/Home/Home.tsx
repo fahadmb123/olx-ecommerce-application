@@ -27,10 +27,6 @@ function Home () {
                     <option>Vehicles</option>
                 </select>
 
-                <input type="number" placeholder="Min Price" />
-
-                <input type="number" placeholder="Max Price" />
-
                 <button>Apply</button>
 
             </section>
