@@ -5,6 +5,8 @@ const Signup = lazy(()=> import("../pages/Auth/Signup"))
 const Login = lazy(()=> import("../pages/Auth/Login"))
 const Home = lazy(()=> import("../pages/Home/Home"))
 const Sell = lazy(()=> import("../pages/Sell/Sell"))
+const Cart = lazy(()=> import("../pages/Cart/Cart"))
+
 
 
 function AppRoutes () {
@@ -15,6 +17,7 @@ function AppRoutes () {
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />}/>
                 <Route path="sell" element={<Sell />}/>
+                <Route path="cart" element={<Cart />}/>
             </Route>
         </Routes>
     )
