@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { checkAuth, loginUser, signupUser } from "./authApi"
+import { checkAuth, loginUser, logout, signupUser } from "./authApi"
 import type { User,ErrorResponse, loginUserType } from "../../types/auth/authTypes"
 import { AxiosError } from "axios"
 
@@ -36,8 +36,19 @@ const checkAuthThunk = createAsyncThunk("api/checkAuth",async (_,{rejectWithValu
     }
 })
 
+const logoutThunk = createAsyncThunk("api/logout",async (_,{rejectWithValue})=>{
+    try {
+        const response = await logout()
+        return response.data
+    } catch (error) {
+        const err = error as AxiosError<ErrorResponse>
+        return rejectWithValue(err.response?.data.message)
+    }
+})
+
 export {
     signupThunk,
     loginThunk,
-    checkAuthThunk
+    checkAuthThunk,
+    logoutThunk
 }

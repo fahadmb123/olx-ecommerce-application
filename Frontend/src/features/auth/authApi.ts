@@ -12,10 +12,14 @@ const loginUser = async (data:loginUserType)=>{
 const checkAuth = async ()=>{
     return axios.get("http://localhost:5000/auth/checkAuth",{withCredentials: true})
 }
+const logout = async ()=>{
+    return axios.get("http://localhost:5000/auth/logout",{withCredentials: true})
+}
 
 
 export {
     signupUser,
     loginUser,
-    checkAuth
+    checkAuth,
+    logout
 }

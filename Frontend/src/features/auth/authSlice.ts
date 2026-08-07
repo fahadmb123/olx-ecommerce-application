@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { authInitialState } from "../../types/auth/authTypes";
-import {checkAuthThunk, loginThunk, signupThunk} from "./authThunk"
+import {checkAuthThunk, loginThunk, logoutThunk, signupThunk} from "./authThunk"
 
 
 const initialState:authInitialState = {
@@ -45,6 +45,11 @@ const authSlice = createSlice({
             })
             .addCase(checkAuthThunk.rejected,(state)=>{
                 state.loading = false
+            })
+            .addCase(logoutThunk.fulfilled,(state)=>{
+                state.loading = false
+                state.user = null
+                state.isAuthenticated = false
             })
     }
 })
