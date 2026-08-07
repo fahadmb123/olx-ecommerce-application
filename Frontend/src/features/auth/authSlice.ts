@@ -1,13 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { authInitialState } from "../../types/auth/authTypes";
-import {loginThunk, signupThunk} from "./authThunk"
+import {checkAuthThunk, loginThunk, signupThunk} from "./authThunk"
 
 
 const initialState:authInitialState = {
     user : null,
     isAuthenticated:false,
-    loading : false,
-    token:null
+    loading : false
 }
 
 const authSlice = createSlice({
@@ -30,12 +29,14 @@ const authSlice = createSlice({
             })
             .addCase(loginThunk.fulfilled,(state,action)=>{
                 state.loading = false
-                state.user = action.payload.data.user
-                state.token = action.payload.data.token
+                state.user = action.payload.user
                 state.isAuthenticated = true
             })
             .addCase(loginThunk.rejected,(state)=>{
                 state.loading = false
+            })
+            .addCase(checkAuthThunk.pending,(state)=>{
+                state.loading = true
             })
     }
 })

@@ -35,10 +35,7 @@ const loginService = async (data:loginUserType) => {
         throw new Error("Password not matching")
     }
     const token = generateToken(isExist.id.toString(),isExist.email)
-    return {
-        user:isExist,
-        token
-    }
+    return isExist
 }
 
 

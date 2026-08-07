@@ -9,9 +9,13 @@ const signupUser = async (data:User)=>{
 const loginUser = async (data:loginUserType)=>{
     return axios.post("http://localhost:5000/auth/login",data)
 }
+const checkAuth = async ()=>{
+    return axios.post("http://localhost:5000/auth/checkAuth")
+}
 
 
 export {
     signupUser,
-    loginUser
+    loginUser,
+    checkAuth
 }

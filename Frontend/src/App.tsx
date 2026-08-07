@@ -8,7 +8,9 @@ import { Suspense } from 'react'
 import LazyLoadingLoader from './components/Loader/lazyLoadingLoader'
 
 
+
 function App() {
+  
   return (
       <BrowserRouter>
       <Provider store={store}>

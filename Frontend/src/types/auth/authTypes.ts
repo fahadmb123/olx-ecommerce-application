@@ -7,18 +7,14 @@ export type User = {
 export type authInitialState = {
     user : User | null,
     isAuthenticated : boolean,
-    loading : boolean,
-    token:string | null
+    loading : boolean
 }
 
 
 export type ErrorResponse = {
     success : boolean,
     message : string,
-    data? :{
-        user : User,
-        token : string
-    }
+    user?:User
 }
 
 export type loginUserType = {
