@@ -10,7 +10,7 @@ const loginUser = async (data:loginUserType)=>{
     return axios.post("http://localhost:5000/auth/login",data)
 }
 const checkAuth = async ()=>{
-    return axios.post("http://localhost:5000/auth/checkAuth")
+    return axios.get("http://localhost:5000/auth/checkAuth")
 }
 
 
