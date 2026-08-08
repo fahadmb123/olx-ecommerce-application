@@ -5,13 +5,14 @@ import validate from "../middleware/validate"
 import {addProduct} from "../controllers/product/productController"
 import { productSchema } from "../validation/productSchema"
 import upload from "../middleware/upload"
+import authenticate from "../middleware/authenticate"
 const Router = express.Router()
 
 
 
 Router.post("/signup",validate(signupSchema),signup)
 Router.post("/login",validate(loginSchema),login)
-Router.post("/addProduct",upload.single("image"),validate(productSchema),addProduct)
+Router.post("/addProduct",authenticate,upload.single("image"),validate(productSchema),addProduct)
 
 
 

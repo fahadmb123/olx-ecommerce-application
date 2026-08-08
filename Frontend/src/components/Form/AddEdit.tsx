@@ -3,6 +3,10 @@ import "./AddEdit.css";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { productSchema, type ProductFormData } from "../../validation/productSchema";
 import { useAddProduct } from "../../hooks/productHook";
+import { toast } from "react-toastify";
+import type { AxiosError } from "axios";
+import type { ErrorResponse } from "../../types/auth/authTypes";
+
 
 
 function AddEdit() {
@@ -23,9 +27,10 @@ function AddEdit() {
             formData.append("image", data.image[0])
 
             const result = await addProduct(formData)
-            console.log("The Data returned ",result)
+            toast.success(result.message)
         } catch (error) {
-            console.log("Error foooool",error,errors)
+            const err = error as AxiosError<ErrorResponse>
+            toast.error(err.response?.data.message)
         }
             
     }
