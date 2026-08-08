@@ -38,3 +38,22 @@ export const getUserProducts = async (req:Request,res:Response,next:NextFunction
     }
 }
 
+export const getProducts = async (req:Request,res:Response,next:NextFunction) => {
+    try {
+        const page = Number(req.query.page)
+        const limit = Number(req.query.limit)
+        const skip = (page - 1) * limit
+
+        const products = await productModel
+            .find({ solled: false })
+            .skip(skip)
+            .limit(limit)
+        const notMore = products.length < limit
+        return res.status(200).json({
+            products,
+            hasMore : notMore? false : true
+        })
+    } catch (err) {
+        next(err)
+    }
+}
