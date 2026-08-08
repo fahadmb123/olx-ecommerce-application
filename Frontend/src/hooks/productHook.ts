@@ -16,3 +16,12 @@ export const useGetAllUserProducts = ()=>{
         return response.data
     },[])
 }
+
+
+
+export const useGetProducts = ()=>{
+    return useCallback(async (page:number,limit:number)=>{
+        const response = await axios.get(`http://localhost:5000/auth/getProducts?limit=${limit}&page=${page}`,{withCredentials:true})
+        return response.data
+    },[])
+}
