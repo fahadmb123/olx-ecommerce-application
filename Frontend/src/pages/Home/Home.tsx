@@ -102,9 +102,9 @@ function Home () {
             <section className="products">
 
                 {state.products.map((product)=>(
-                    <Card sell={true} key={product._id} product={product}/>
+                    <Card key={product._id} product={product}/>
                 ))}
-                
+
             </section>
             {state.hasMore && (
                 <div className="view-more-container">
