@@ -6,6 +6,12 @@ function Card ({sell,product}:cardType){
     return (
         <>
             <div className="card">
+
+                {product.solled && (
+                    <div className="sold-badge">
+                        SOLD
+                    </div>
+                )}
                 <img src={product.image} />
                 <div className="details">
                     <h2>₹{product.price.toLocaleString("en-IN")}</h2>

@@ -86,6 +86,7 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
 
     transition: 0.3s;
+    position: relative;
 }
 
 .card:hover {
@@ -102,6 +103,24 @@
     object-fit: cover;
 
     display: block;
+}
+
+
+.sold-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+
+    background: #e63946;
+    color: white;
+
+    padding: 6px 12px;
+    border-radius: 5px;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    z-index: 2;
 }
 
 
