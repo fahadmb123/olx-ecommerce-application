@@ -6,4 +6,6 @@ export const addProductService = async (req:Request) => {
     if (!image) {
         throw new Error ("Image requierd")
     }
+
+    
 }
