@@ -8,6 +8,8 @@ const Router = express.Router()
 
 Router.post("/signup",validate(signupSchema),signup)
 Router.post("/login",validate(loginSchema),login)
+//Router.post("/addProduct",)
+
 
 
 Router.get("/checkAuth",checkAuth)

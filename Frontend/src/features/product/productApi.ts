@@ -3,7 +3,7 @@ import type { Product } from "../../types/product/productTypes";
 
 
 const addProduct = async (data:Product) => {
-    return axios.post("http://localhost:5000/auth/signup",data)
+    return axios.post("http://localhost:5000/auth/addProduct",data)
 }
 
 

@@ -19,7 +19,7 @@ const signup = async (req:Request,res:Response,next:NextFunction)=>{
 const login = async (req:Request,res:Response,next:NextFunction) => {
     try {
         const {user,token} = await loginService(req.body)
-        console.log(token)
+        
         res.cookie("token", token, {
             httpOnly: true,
             secure: false,
