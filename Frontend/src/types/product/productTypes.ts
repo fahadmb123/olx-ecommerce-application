@@ -29,3 +29,9 @@ export type cardType = {
     sell?:boolean,
     product:Product
 }
+
+export type SellAction = 
+    | { type: "products"; payload: Product[] }
+    | { type: "loading"; payload: boolean }
+    | { type: "page"; payload: number }
+    | { type: "hasMore"; payload: boolean }

@@ -3,17 +3,13 @@ import { useNavigate } from "react-router-dom";
 import Card from "../../components/Card/Card"
 import { useEffect, useReducer } from "react";
 import { useGetAllUserProducts } from "../../hooks/productHook";
-import type { Product, sellUseReducerInitialState } from "../../types/product/productTypes";
+import type { sellUseReducerInitialState,SellAction } from "../../types/product/productTypes";
 import { toast } from "react-toastify";
 import type { AxiosError } from "axios";
 import type { ErrorResponse } from "../../types/auth/authTypes";
 
 
-type SellAction = 
-    | { type: "products"; payload: Product[] }
-    | { type: "loading"; payload: boolean }
-    | { type: "page"; payload: number }
-    | { type: "hasMore"; payload: boolean }
+
 const initialState:sellUseReducerInitialState = {
     products:[],
     loading : false,
