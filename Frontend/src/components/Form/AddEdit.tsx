@@ -6,10 +6,12 @@ import { useAddProduct } from "../../hooks/productHook";
 import { toast } from "react-toastify";
 import type { AxiosError } from "axios";
 import type { ErrorResponse } from "../../types/auth/authTypes";
+import { useNavigate } from "react-router-dom";
 
 
 
 function AddEdit() {
+    const navigate = useNavigate()
     const addProduct = useAddProduct()
     const {register,handleSubmit,formState:{errors}} = useForm<ProductFormData>({
         resolver : zodResolver(productSchema),mode : "onChange"
@@ -27,6 +29,7 @@ function AddEdit() {
             formData.append("image", data.image[0])
 
             const result = await addProduct(formData)
+            navigate("/sell", { replace: true })
             toast.success(result.message)
         } catch (error) {
             const err = error as AxiosError<ErrorResponse>
