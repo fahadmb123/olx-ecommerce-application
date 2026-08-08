@@ -59,7 +59,7 @@ function Sell() {
         try {
             dispatch({type:"loading",payload:true})
                     
-            const data = await getAllUserProducts({page:state.page,limit:9})
+            const data = await getAllUserProducts(state.page,9)
             dispatch({type:"products",payload:data.products})
             dispatch({type:"hasMore",payload:data.hasMore})
         } catch (err) {

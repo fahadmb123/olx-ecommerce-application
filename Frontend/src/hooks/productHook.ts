@@ -10,8 +10,8 @@ export const useAddProduct = ()=>{
 
 
 export const useGetAllUserProducts = ()=>{
-    return async (data:{limit:number,page:number})=>{
-        const response = await axios.post("http://localhost:5000/auth/getAllProducts",data,{withCredentials:true})
+    return async (limit:number,page:number)=>{
+        const response = await axios.get(`http://localhost:5000/auth/getAllProducts?limit=${limit}&page=${page}`,{withCredentials:true})
         return response.data
     }
 }
