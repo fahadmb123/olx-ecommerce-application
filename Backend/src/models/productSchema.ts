@@ -1,4 +1,5 @@
 import mongoose, { InferSchemaType } from "mongoose"
+import { string } from "zod"
 
 
 
@@ -30,6 +31,10 @@ const productSchema = new mongoose.Schema({
     image : {
         type : String,
         required : true
+    },
+    solled : {
+        type : Boolean,
+        default : false
     }
 
 },{ timestamps: true })
