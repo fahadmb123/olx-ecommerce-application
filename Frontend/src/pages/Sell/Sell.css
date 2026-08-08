@@ -8,7 +8,35 @@
 body {
     background: #f2f4f5;
 }
+.listings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
 
+.listings-header h2 {
+    margin-bottom: 5px;
+}
+
+.listings-header span {
+    color: #666;
+}
+
+.sell-product-button {
+    background: #002f34;
+    color: white;
+    border: none;
+    padding: 13px 22px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.sell-product-button:hover {
+    background: #01464d;
+}
 
 /* ================= NAVBAR ================= */
 
