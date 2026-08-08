@@ -7,10 +7,11 @@ import { toast } from "react-toastify";
 import type { AxiosError } from "axios";
 import type { ErrorResponse } from "../../types/auth/authTypes";
 import { useNavigate } from "react-router-dom";
-
-
+import { useAppDispatch } from "../../hooks/dispatchHook";
+import { setGlobalLoadingStateAction } from "../../features/UI/uiLoadingSlice";
 
 function AddEdit() {
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const addProduct = useAddProduct()
     const {register,handleSubmit,formState:{errors}} = useForm<ProductFormData>({
@@ -19,7 +20,7 @@ function AddEdit() {
 
     const onSubmit = async (data:ProductFormData)=>{
         try {
-            
+            dispatch(setGlobalLoadingStateAction(true))
             const formData = new FormData();
 
             formData.append("title", data.title);
@@ -30,9 +31,11 @@ function AddEdit() {
 
             const result = await addProduct(formData)
             navigate("/sell", { replace: true })
+            dispatch(setGlobalLoadingStateAction(false))
             toast.success(result.message)
         } catch (error) {
             const err = error as AxiosError<ErrorResponse>
+            dispatch(setGlobalLoadingStateAction(false))
             toast.error(err.response?.data.message)
         }
             

@@ -14,6 +14,6 @@ const uiLoadingSlice = createSlice({
     }
 })
 
-const setGlobalStateAction = uiLoadingSlice.actions.setGlobalLoading
-export {setGlobalStateAction}
+const setGlobalLoadingStateAction = uiLoadingSlice.actions.setGlobalLoading
+export {setGlobalLoadingStateAction}
 export default uiLoadingSlice.reducer
