@@ -1,4 +1,6 @@
 import { Request } from "express";
+import productModel from "../models/productSchema";
+
 
 export const addProductService = async (req:Request) => {
     const { title, description, price, category } = req.body
@@ -8,4 +10,12 @@ export const addProductService = async (req:Request) => {
     }
 
     
+    const newProduct = new productModel({
+        title,
+        description,
+        price,
+        category
+    })
+
+
 }
