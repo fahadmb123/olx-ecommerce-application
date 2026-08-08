@@ -9,7 +9,11 @@ export const addProductService = async (req:Request) => {
     const image = req.file
     const token = req.cookies.token
     const decoded = verifyToken(token)
+    const isDuplicate = await productModel.findOne({title})
 
+    if (isDuplicate) {
+        throw new Error("Product title already exist")
+    }
     if (!image) {
         throw new Error ("Image requierd")
     }
