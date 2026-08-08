@@ -2,7 +2,7 @@ import express from "express"
 import { checkAuth, login, logout, signup } from "../controllers/auth/controller"
 import { loginSchema, signupSchema } from "../validation/authSchema"
 import validate from "../middleware/validate"
-import {addProduct} from "../controllers/product/productController"
+import {addProduct, getUserProducts} from "../controllers/product/productController"
 import { productSchema } from "../validation/productSchema"
 import upload from "../middleware/upload"
 import authenticate from "../middleware/authenticate"
@@ -18,7 +18,7 @@ Router.post("/addProduct",authenticate,upload.single("image"),validate(productSc
 
 Router.get("/checkAuth",checkAuth)
 Router.get("/logout",logout)
-
+Router.get("/getUserProducts",authenticate,getUserProducts)
 
 
 export default Router

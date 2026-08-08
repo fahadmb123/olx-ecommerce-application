@@ -23,3 +23,9 @@ export type sellUseReducerInitialState = {
     page:number;
     hasMore:boolean;
 }
+
+
+export type cardType = {
+    sell?:boolean,
+    product:Product
+}

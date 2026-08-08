@@ -1,7 +1,8 @@
+import type { cardType } from "../../types/product/productTypes"
 import "./Card.css"
 
 
-function Card ({sell}:{sell?:boolean}){
+function Card ({sell,product}:cardType){
     return (
         <>
             <div className="card">

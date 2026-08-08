@@ -4,7 +4,9 @@ import Card from "../../components/Card/Card"
 import { useEffect, useReducer } from "react";
 import { useGetAllUserProducts } from "../../hooks/productHook";
 import type { Product, sellUseReducerInitialState } from "../../types/product/productTypes";
-
+import { toast } from "react-toastify";
+import type { AxiosError } from "axios";
+import type { ErrorResponse } from "../../types/auth/authTypes";
 
 
 type SellAction = 
@@ -23,7 +25,10 @@ const reducer = (state:sellUseReducerInitialState,action:SellAction) =>{
         case "products":
             return {
                 ...state,
-                products : [...state.products,...action.payload]
+                products:
+                    state.page === 1
+                        ? action.payload
+                        : [...state.products, ...action.payload]
             }
         case "loading":
             return {
@@ -55,26 +60,28 @@ function Sell() {
    
 
 
-    const fetchProducts = async ()=>{
-        try {
-            dispatch({type:"loading",payload:true})
-                    
-            const data = await getAllUserProducts(state.page,9)
-            dispatch({type:"products",payload:data.products})
-            dispatch({type:"hasMore",payload:data.hasMore})
-        } catch (err) {
-            console.log(err)
-        } finally {
-            dispatch({type:"loading",payload:false})
-        }
-    }
+    
     useEffect(()=>{
+        const fetchProducts = async ()=>{
+            try {
+                dispatch({type:"loading",payload:true})
+                        
+                const data = await getAllUserProducts(state.page,9)
+                dispatch({type:"products",payload:data.products})
+                dispatch({type:"hasMore",payload:data.hasMore})
+                
+            } catch (error) {
+                const err = error as AxiosError<ErrorResponse>
+                toast.error(err.response?.data.message)
+            } finally {
+                dispatch({type:"loading",payload:false})
+            }
+        }
         fetchProducts()
-    },[])
+    },[getAllUserProducts,state.page])
 
     const handleViewMore = () => {
         dispatch({type:"page",payload:state.page+1})
-        fetchProducts()
     };
     return (
         <main className="sell-container">
@@ -84,7 +91,7 @@ function Sell() {
                 <div className="listings-header">
                     <div>
                         <h2>My Listings</h2>
-                        <span>3 Products</span>
+                        <span>{state.products.length} Products</span>
                     </div>
 
                     <button
@@ -97,13 +104,9 @@ function Sell() {
 
 
                 <div className="listing-grid">
-
-                    <Card sell={true}/>
-                    <Card sell={true}/>
-                    <Card sell={true}/>
-                    <Card sell={true}/>
-                    <Card sell={true}/>
-
+                    {state.products.map((product)=>(
+                        <Card sell={true} key={product._id} product={product}/>
+                    ))}
                 </div>
                 {state.hasMore && (
                     <div className="view-more-container">

@@ -31,4 +31,7 @@ export const addProductService = async (req:Request) => {
     })
     
     await newProduct.save()
+    return
 }
+
+

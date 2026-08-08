@@ -1,4 +1,5 @@
 import axios from "axios"
+import { useCallback } from "react"
 
 
 export const useAddProduct = ()=>{
@@ -10,8 +11,8 @@ export const useAddProduct = ()=>{
 
 
 export const useGetAllUserProducts = ()=>{
-    return async (limit:number,page:number)=>{
-        const response = await axios.get(`http://localhost:5000/auth/getAllProducts?limit=${limit}&page=${page}`,{withCredentials:true})
+    return useCallback(async (page:number,limit:number)=>{
+        const response = await axios.get(`http://localhost:5000/auth/getUserProducts?limit=${limit}&page=${page}`,{withCredentials:true})
         return response.data
-    }
+    },[])
 }
