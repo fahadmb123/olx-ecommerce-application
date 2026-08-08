@@ -7,3 +7,11 @@ export const useAddProduct = ()=>{
         return response.data
     }
 }
+
+
+export const useGetAllProducts = ()=>{
+    return async ()=>{
+        const response = await axios.post("http://localhost:5000/auth/getAllProducts",{withCredentials:true})
+        return response.data
+    }
+}
