@@ -2,26 +2,30 @@ import { useForm } from "react-hook-form";
 import "./AddEdit.css";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { productSchema, type ProductFormData } from "../../validation/productSchema";
+import { useAddProduct } from "../../hooks/productHook";
 
 
 function AddEdit() {
-
+    const addProduct = useAddProduct()
     const {register,handleSubmit,formState:{errors}} = useForm<ProductFormData>({
         resolver : zodResolver(productSchema),mode : "onChange"
     })
 
     const onSubmit = async (data:ProductFormData)=>{
         try {
+            
             const formData = new FormData();
 
             formData.append("title", data.title);
             formData.append("description", data.description)
             formData.append("price", String(data.price))
-            formData.append("productImage", data.image[0])
+            formData.append("category", String(data.category))
+            formData.append("image", data.image[0])
 
-            
+            const result = await addProduct(formData)
+            console.log("The Data returned ",result)
         } catch (error) {
-            console.log("Error",error,errors)
+            console.log("Error foooool",error,errors)
         }
             
     }
@@ -77,7 +81,7 @@ function AddEdit() {
                         <div className="add-edit-form-group">
                             <label>Category</label>
 
-                            <select defaultValue="">
+                            <select {...register("category")} defaultValue="">
                                 <option selected value="Mobile">
                                     Mobile
                                 </option>
