@@ -8,6 +8,40 @@
 body {
     background: #f2f4f5;
 }
+
+.view-more-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 35px;
+    padding-bottom: 30px;
+}
+
+.view-more-button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 6px;
+
+    background: #002f34;
+    color: white;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.view-more-button:hover {
+    background: #01464d;
+}
+
+.view-more-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
 .listings-header {
     display: flex;
     justify-content: space-between;
