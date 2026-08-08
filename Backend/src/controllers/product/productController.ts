@@ -28,6 +28,7 @@ export const getUserProducts = async (req:Request,res:Response,next:NextFunction
             .find({ userId: decoded.userId })
             .skip(skip)
             .limit(limit)
+            .sort({ updatedAt: -1 })
         const notMore = products.length < limit
         return res.status(200).json({
             products,
@@ -48,6 +49,7 @@ export const getProducts = async (req:Request,res:Response,next:NextFunction) =>
             .find({ solled: false })
             .skip(skip)
             .limit(limit)
+            .sort({ updatedAt: -1 })
         const notMore = products.length < limit
         return res.status(200).json({
             products,
