@@ -1,7 +1,7 @@
 import "./Card.css"
 
 
-function Card (){
+function Card ({sell}:{sell?:boolean}){
     return (
         <>
             <div className="card">
@@ -15,10 +15,18 @@ function Card (){
 
                     <p>Excellent condition.</p>
 
-                    <div className="buttons">
-                        <button className="view">View</button>
-                        <button className="cart">Add Cart</button>
-                    </div>
+                    {sell && (
+                        <div className="buttons">
+                            <button className="view">Edit</button>
+                            <button className="cart">Delete</button>
+                        </div>
+                    )}
+                    {!sell && (
+                        <div className="buttons">
+                            <button className="view">View</button>
+                            <button className="cart">Add Cart</button>
+                        </div>
+                    )}
 
                 </div>
 
