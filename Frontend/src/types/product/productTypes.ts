@@ -1,11 +1,11 @@
 export type Product = {
     _id:string
-    title: string | null;
-    description: string | null;
-    price: number | null;
-    image: string | null;
-    userId:string | null;
-    category : string | null;
+    title: string;
+    description: string;
+    price: number;
+    image: string;
+    userId:string ;
+    category : string ;
     solled : boolean;
     updatedAt : Date;
     createdAt : Date;

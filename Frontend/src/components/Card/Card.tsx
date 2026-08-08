@@ -6,15 +6,19 @@ function Card ({sell,product}:cardType){
     return (
         <>
             <div className="card">
-                <img src="https://picsum.photos/300/220?1" />
+                <img src={product.image} />
                 <div className="details">
-                    <h2>₹45,000</h2>
+                    <h2>₹{product.price.toLocaleString("en-IN")}</h2>
 
-                    <h3>iPhone 15</h3>
+                    <h3>{product.title.split(" ")
+                        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                        .join(" ")}</h3>
 
-                    <p>Category : Mobile</p>
+                    <p>Category : {product.category.split(" ")
+                        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                        .join(" ")}</p>
 
-                    <p>Excellent condition.</p>
+                    <p>{product.description}</p>
 
                     {sell && (
                         <div className="buttons">
