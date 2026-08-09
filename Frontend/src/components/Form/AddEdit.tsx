@@ -95,10 +95,10 @@ function AddEdit() {
             {loading && <Loader />}
             <div className="add-edit-card">
 
-                <h1>Sell Your Product</h1>
+                <h1>{id? "Edit Your Product":"Sell Your Product"}</h1>
 
                 <p className="add-edit-subtitle">
-                    Add your product and start selling.
+                    
                 </p>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="add-edit-form">
