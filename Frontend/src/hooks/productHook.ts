@@ -9,8 +9,8 @@ export const useAddProduct = ()=>{
     }
 }
 export const useEditProduct = ()=>{
-    return async (data:FormData)=>{
-        const response = await axios.post("http://localhost:5000/auth/editProduct",data,{withCredentials: true})
+    return async (data:FormData,id:string)=>{
+        const response = await axios.post(`http://localhost:5000/auth/editProduct/${id}`,data,{withCredentials: true})
         return response.data
     }
 }

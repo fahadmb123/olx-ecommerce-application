@@ -20,10 +20,11 @@ export const addProduct = async (req:Request,res:Response,next:NextFunction) => 
 
 export const editProduct = async (req:Request,res:Response,next:NextFunction) => {
     try {
-        await editProductService(req)
+        const message = await editProductService(req)
+        
         res.status(201).json({
             success : true,
-            message : "Updated"
+            message
         })
     } catch (err) {
         next(err)

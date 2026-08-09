@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import "./AddEdit.css";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { editProductSchema, productSchema, type ProductFormData,type EditProductFormData } from "../../validation/productSchema";
-import { useAddProduct, useGetProduct } from "../../hooks/productHook";
+import { useAddProduct, useEditProduct, useGetProduct } from "../../hooks/productHook";
 import { toast } from "react-toastify";
 import type { AxiosError } from "axios";
 import type { ErrorResponse } from "../../types/auth/authTypes";
@@ -16,6 +16,7 @@ function AddEdit() {
     const getProduct = useGetProduct()
     const navigate = useNavigate()
     const addProduct = useAddProduct()
+    const editProduct = useEditProduct()
     const [product, setProduct] = useState<Product | null>(null)
     const [loading,setLoading] = useState<boolean>(false)
 
@@ -66,11 +67,17 @@ function AddEdit() {
             formData.append("description", data.description)
             formData.append("price", String(data.price))
             formData.append("category", String(data.category))
-            if (data.image) {
-                formData.append("image", data.image[0]);
+            
+            if (data.image && data.image.length > 0) {
+                formData.append("image", data.image[0])
             }
 
-            const result = await addProduct(formData)
+            let result
+            if (id) {
+                result = await editProduct(formData,id)
+            }else {
+                result = await addProduct(formData)
+            }
             navigate("/sell", { replace: true })
             setLoading(false)
             toast.success(result.message)

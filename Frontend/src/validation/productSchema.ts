@@ -19,8 +19,37 @@ const imageValidation = z
     );
 
 
-export const productSchema = z.object({
+const editImageValidation = z
+    .custom<FileList>()
+    .refine(
+        (files) => {
+            
+            if (files.length === 0) {
+                return true;
+            }
 
+            return files[0].size <= 5 * 1024 * 1024;
+        },
+        "Image must be less than 5MB"
+    )
+    .refine(
+        (files) => {
+           
+            if (files.length === 0) {
+                return true;
+            }
+
+            return ["image/jpeg", "image/png", "image/webp"].includes(
+                files[0].type
+            );
+        },
+        "Only JPEG, PNG and WebP images are allowed"
+    );
+
+
+
+
+export const productSchema = z.object({
     title: z
         .string()
         .trim()
@@ -31,7 +60,7 @@ export const productSchema = z.object({
     description: z
         .string()
         .trim()
-        .min(1, "Description is required")
+        .min(1, "Product description is required")
         .min(10, "Description must be at least 10 characters")
         .max(1000, "Description cannot exceed 1000 characters"),
 
@@ -44,11 +73,10 @@ export const productSchema = z.object({
         .positive("Price must be greater than 0"),
 
     image: imageValidation,
-});
+})
 
 
 export const editProductSchema = z.object({
-
     title: z
         .string()
         .trim()
@@ -71,11 +99,11 @@ export const editProductSchema = z.object({
         .string()
         .min(1, "Category is required"),
 
-   
-    image: imageValidation.optional(),
-});
+    image: editImageValidation,
+})
+
+
 
 
 export type ProductFormData = z.infer<typeof productSchema>;
-
 export type EditProductFormData = z.infer<typeof editProductSchema>;

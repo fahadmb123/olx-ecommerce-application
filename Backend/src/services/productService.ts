@@ -54,12 +54,16 @@ export const editProductService = async (req:Request) => {
     if (idDuplicate) {
         throw new Error("Product title already exist")
     }
-
-    if (!image) {
-        throw new Error ("Image requierd")
+    let imageUrl;
+    if (image){
+        imageUrl = await uploadImage(image)
     }
 
-    const imageUrl = await uploadImage(image)
+    const same =
+        oldProduct.title === title &&
+        oldProduct.description === description &&
+        oldProduct.price === price &&
+        oldProduct.category === category
 
     await productModel.updateOne({_id:id},{
         title,
@@ -69,5 +73,7 @@ export const editProductService = async (req:Request) => {
         image:imageUrl,
         userId:decoded.userId
     })
-    return
+   
+ 
+    return !image && same? "Nothing Changed" : "Updated"
 }
