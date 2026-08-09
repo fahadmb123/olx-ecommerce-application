@@ -55,3 +55,11 @@ export const useAddToCart = ()=>{
 }
 
 
+
+export const useGetCartProducts = ()=>{
+    return useCallback(async ()=>{
+        const response = await axios.get(`http://localhost:5000/auth/getCartProducts`,{withCredentials:true})
+        return response.data
+    },[])
+}
+

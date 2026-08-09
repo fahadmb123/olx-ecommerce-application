@@ -44,3 +44,10 @@ export type SellAction =
     | { type: "page"; payload: number }
     | { type: "hasMore"; payload: boolean }
     | { type: "deleteProduct"; payload: string }
+
+
+
+
+export type CartCardType = {
+    product : Product
+}
