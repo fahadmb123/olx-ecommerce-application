@@ -9,6 +9,15 @@ body {
     background: #f2f4f5;
 }
 
+.no-values {
+    display: flex;
+    justify-content: center;
+    
+}
+.no-values h1{
+    margin-top: 100px;
+}
+
 .view-more-container {
     display: flex;
     justify-content: center;

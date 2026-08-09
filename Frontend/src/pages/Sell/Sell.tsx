@@ -112,6 +112,9 @@ function Sell() {
                         <Card sell={true} key={product._id} product={product} setLoading={setLoading} dispatch={dispatch}/>
                     ))}
                 </div>
+                <div className="no-values">
+                    {state.products.length == 0 && (<h1>No products</h1>)}
+                </div>
                 {state.hasMore && (
                     <div className="view-more-container">
                         <button
