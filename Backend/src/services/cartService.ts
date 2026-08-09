@@ -96,9 +96,9 @@ export const getCheckoutCartProductsService = async (req:Request) => {
     const token = req.cookies.token
     const decoded = verifyToken(token)
     const cart = await cartModel.findOne({userId: decoded.userId}).populate({path: "items.productId"})
-
-
-
+    if (cart?.items.length === 0) {
+        throw new Error("No products found")
+    }
 
     const isSolled = cart?.items.some(
         (data) => (data.productId as any)?.solled === true
@@ -119,6 +119,9 @@ export const placeCartProductsService = async (req:Request) => {
     const isSolled = cart?.items.some(
         (data) => (data.productId as any)?.solled === true
     )
+    if (cart?.items.length === 0) {
+        throw new Error("No products found")
+    }
     
     if (isSolled) {
         throw new Error("Some products not available")
