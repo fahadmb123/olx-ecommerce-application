@@ -97,7 +97,7 @@ function Cart() {
                         </div>
 
                         <NavLink
-                            to={`/checkout?cart=${true}`}
+                            to={`/checkout`}
                             className="checkout-button"
                         >
                             Proceed to Checkout

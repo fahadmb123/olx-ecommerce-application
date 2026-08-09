@@ -71,3 +71,13 @@ export const useRemCart = ()=>{
         return response.data
     },[])
 }
+
+
+
+
+export const useGetCheckoutCartProducts = ()=>{
+    return useCallback(async ()=>{
+        const response = await axios.get(`http://localhost:5000/auth/getCheckoutCartProducts`,{withCredentials:true})
+        return response.data
+    },[])
+}

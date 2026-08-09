@@ -1,7 +1,66 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
 import "./Checkout.css";
+import { useEffect, useState } from "react";
+import type { CartCardType } from "../../types/product/productTypes";
+import { useGetCheckoutCartProducts } from "../../hooks/productHook";
+import type { AxiosError } from "axios";
+import type { ErrorResponse } from "../../types/auth/authTypes";
+import { toast } from "react-toastify";
+
+
 
 function Checkout() {
+    const [searchParams] = useSearchParams();
+    const navigate = useNavigate()
+    const productId = searchParams.get("productId");
+    const [products,setProducts] = useState<CartCardType[] | null>(null)
+    const getCheckoutCartProducts = useGetCheckoutCartProducts()
+    const [subtotal,setSubtotal] = useState(0)
+
+    useEffect(() => {
+        const work = async () => {
+            try {
+                if (!productId) {
+                    const result = await getCheckoutCartProducts()
+                    setProducts(result.data)
+                }
+            } catch (error) {
+                const err = error as AxiosError<ErrorResponse>
+                toast.error(
+                    err.response?.data.message || "Something went wrong",{toastId: "checkout-error" }
+                )
+                navigate(productId ? "/details" : "/cart")
+            }
+        }
+
+        work()
+    }, [navigate, productId, getCheckoutCartProducts])
+
+    useEffect(() => {
+         const summary = async ()=>{
+            const subtotal = products?.reduce((acc, curr) => {
+                return acc + (curr.productId.price || 0);
+            }, 0) ?? 0;
+            setSubtotal(subtotal)
+        }
+        summary()
+    }, [products])
+
+
+    const handlePlaceOrder = async ()=>{
+        try {
+            if (!productId) {
+                const result = await getCheckoutCartProducts()
+                setProducts(result.data)
+            }
+        } catch (error) {
+            const err = error as AxiosError<ErrorResponse>
+            toast.error(
+                err.response?.data.message || "Something went wrong",{toastId: "checkout-error" }
+            )
+            navigate(productId ? "/details" : "/cart")
+        }
+    }
     return (
         <div className="checkout-page">
 
@@ -12,78 +71,46 @@ function Checkout() {
 
                 <div className="checkout-content">
 
-                    {/* Selected Products */}
+                    
                     <section className="checkout-products">
 
                         <h2>Your Products</h2>
 
-                        {/* Product 1 */}
-                        <div className="checkout-item">
+                       {products?.map((product)=>(
+                            <div className="checkout-item">
 
-                            <img
-                                src="https://picsum.photos/200/200?1"
-                                alt="iPhone 15"
-                            />
+                                <img
+                                    src={product.productId.image}
+                                    alt={product.productId.title}
+                                />
 
-                            <div className="checkout-item-details">
+                                <div className="checkout-item-details">
 
-                                <h3>iPhone 15</h3>
+                                    <h3>{product.productId.title
+                                        .split(" ")
+                                        .map(
+                                            word =>
+                                                word.charAt(0).toUpperCase() +
+                                                word.slice(1).toLowerCase()
+                                        )
+                                        .join(" ")}
+                                    </h3>
 
-                                <p>Mobile</p>
+                                    <p>{product.productId.category
+                                        .split(" ")
+                                        .map(
+                                            word =>
+                                                word.charAt(0).toUpperCase() +
+                                                word.slice(1).toLowerCase()
+                                        )
+                                        .join(" ")}
+                                    </p>
+                                </div>
 
-                                <span>Quantity: 1</span>
-
-                            </div>
-
-                            <strong>₹55,000</strong>
-
-                        </div>
-
-
-                        {/* Product 2 */}
-                        <div className="checkout-item">
-
-                            <img
-                                src="https://picsum.photos/200/200?2"
-                                alt="Dell Laptop"
-                            />
-
-                            <div className="checkout-item-details">
-
-                                <h3>Dell Laptop</h3>
-
-                                <p>Laptop</p>
-
-                                <span>Quantity: 1</span>
+                                <strong>₹{product.productId.price.toLocaleString("en-IN")}</strong>
 
                             </div>
-
-                            <strong>₹30,000</strong>
-
-                        </div>
-
-
-                        {/* Product 3 */}
-                        <div className="checkout-item">
-
-                            <img
-                                src="https://picsum.photos/200/200?3"
-                                alt="Office Chair"
-                            />
-
-                            <div className="checkout-item-details">
-
-                                <h3>Office Chair</h3>
-
-                                <p>Furniture</p>
-
-                                <span>Quantity: 2</span>
-
-                            </div>
-
-                            <strong>₹3,000</strong>
-
-                        </div>
+                       ))}
 
                     </section>
 
@@ -95,12 +122,12 @@ function Checkout() {
 
                         <div className="summary-row">
                             <span>Products</span>
-                            <span>4</span>
+                            <span>{products?.length}</span>
                         </div>
 
                         <div className="summary-row">
                             <span>Subtotal</span>
-                            <span>₹88,000</span>
+                            <span>₹{subtotal.toLocaleString("en-IN")}</span>
                         </div>
 
                         <div className="summary-row">
@@ -112,10 +139,10 @@ function Checkout() {
 
                         <div className="total-row">
                             <span>Total</span>
-                            <strong>₹88,000</strong>
+                            <strong>₹{subtotal.toLocaleString("en-IN")}</strong>
                         </div>
 
-                        <button className="place-order-button">
+                        <button onClick={()=>handlePlaceOrder()} className="place-order-button">
                             Place Order
                         </button>
 

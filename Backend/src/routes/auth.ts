@@ -6,7 +6,7 @@ import {addProduct, deleteProduct, editProduct, getProduct, getProducts, getUser
 import { productSchema } from "../validation/productSchema"
 import upload from "../middleware/upload"
 import authenticate from "../middleware/authenticate"
-import { addToCart, getCartProducts, remCart } from "../controllers/product/cartController"
+import { addToCart, getCartProducts, getCheckoutCartProducts, remCart } from "../controllers/product/cartController"
 const Router = express.Router()
 
 
@@ -25,6 +25,8 @@ Router.get("/getProduct/:id",authenticate,getProduct)
 Router.get("/deleteProduct/:id",authenticate,deleteProduct)
 Router.get("/addToCart/:id",authenticate,addToCart)
 Router.get("/getCartProducts",authenticate,getCartProducts)
+Router.get("/getCheckoutCartProducts",authenticate,getCheckoutCartProducts)
+
 
 Router.delete("/remCart/:id",authenticate,remCart)
 

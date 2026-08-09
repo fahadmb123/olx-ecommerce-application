@@ -89,4 +89,23 @@ export const remCartService = async (req: Request) => {
     )
 
     return 
-};
+}
+
+
+export const getCheckoutCartProductsService = async (req:Request) => {
+    const token = req.cookies.token
+    const decoded = verifyToken(token)
+    const cart = await cartModel.findOne({userId: decoded.userId}).populate({path: "items.productId"})
+
+
+
+
+    const isSolled = cart?.items.some(
+        (data) => (data.productId as any)?.solled === true
+    )
+    if (isSolled) {
+        throw new Error("Some products not available")
+    }
+    return cart?.items
+}
+

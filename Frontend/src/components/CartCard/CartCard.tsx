@@ -60,9 +60,9 @@ function Card({ product,setProducts }: CardProps) {
                     </h2>
 
                     {product.productId.solled && (
-                        <div className="sold-badge">
+                        <span className="stock-badge sold-out">
                             SOLD OUT
-                        </div>
+                        </span>
                     )}
                     
                 </div>
