@@ -97,7 +97,7 @@ function Home () {
             </section>
 
             <div className="heading">
-                <h2>Fresh Recommendations</h2>
+                <h2>Products</h2>
             </div>
 
             
@@ -109,6 +109,9 @@ function Home () {
                 ))}
 
             </section>
+            <div className="no-values">
+                {state.products.length == 0 && (<h1>No products</h1>)}
+            </div>
             {state.hasMore && (
                 <div className="view-more-container">
                     <button
