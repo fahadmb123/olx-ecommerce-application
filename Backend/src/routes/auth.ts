@@ -2,10 +2,11 @@ import express from "express"
 import { checkAuth, login, logout, signup } from "../controllers/auth/controller"
 import { loginSchema, signupSchema } from "../validation/authSchema"
 import validate from "../middleware/validate"
-import {addProduct, addToCart, deleteProduct, editProduct, getProduct, getProducts, getUserProducts} from "../controllers/product/productController"
+import {addProduct, deleteProduct, editProduct, getProduct, getProducts, getUserProducts} from "../controllers/product/productController"
 import { productSchema } from "../validation/productSchema"
 import upload from "../middleware/upload"
 import authenticate from "../middleware/authenticate"
+import { addToCart, getCartProducts } from "../controllers/product/cartController"
 const Router = express.Router()
 
 
@@ -23,6 +24,7 @@ Router.get("/getProducts",authenticate,getProducts)
 Router.get("/getProduct/:id",authenticate,getProduct)
 Router.get("/deleteProduct/:id",authenticate,deleteProduct)
 Router.get("/addToCart/:id",authenticate,addToCart)
+Router.get("/getCartProducts/:id",authenticate,getCartProducts)
 
 
 

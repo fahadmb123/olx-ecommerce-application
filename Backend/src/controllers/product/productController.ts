@@ -1,22 +1,8 @@
 import { Request ,Response,NextFunction} from "express";
-import { addProductService, addToCartService, deleteProductService, editProductService } from "../../services/productService";
+import { addProductService, deleteProductService, editProductService } from "../../services/productService";
 import productModel from "../../models/productSchema";
 import verifyToken from "../../utils/verifyToken";
 
-
-
-export const addToCart = async (req:Request,res:Response,next:NextFunction) => {
-    try {
-        
-        await addToCartService(req)
-        res.status(201).json({
-            success : true,
-            message : "Cart Updated"
-        })
-    } catch (err) {
-        next(err)
-    }
-}
 
 
 
