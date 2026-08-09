@@ -8,7 +8,7 @@ import { toast } from "react-toastify"
 
 
 
-function Card ({sell,product,setLoading,dispatch}:cardType){
+function Card ({sell,product,setLoading,dispatch,addCart}:cardType){
     const navigate = useNavigate()
     const deleteProduct = useDeleteProduct()
     const onEdit = (id:string)=>{
@@ -62,7 +62,7 @@ function Card ({sell,product,setLoading,dispatch}:cardType){
                     {!sell && (
                         <div className="buttons">
                             <button className="view">View</button>
-                            <button className="cart">Add Cart</button>
+                            <button onClick={()=>addCart?.(product._id)} className="cart">Add Cart</button>
                         </div>
                     )}
 

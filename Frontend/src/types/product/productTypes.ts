@@ -33,7 +33,8 @@ export type cardType = {
     sell?:boolean,
     product:Product,
     setLoading:React.Dispatch<React.SetStateAction<boolean>>,
-    dispatch?: Dispatch<SellAction>
+    dispatch?: Dispatch<SellAction>,
+    addCart? : (id:string)=>void
 }
 
 export type SellAction = 

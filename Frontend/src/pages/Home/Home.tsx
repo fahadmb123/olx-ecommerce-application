@@ -2,7 +2,7 @@ import "./Home.css"
 import Card from "../../components/Card/Card"
 import type { SellAction, sellUseReducerInitialState } from "../../types/product/productTypes"
 import { useEffect, useReducer, useState } from "react"
-import { useGetProducts } from "../../hooks/productHook"
+import { useAddToCart, useGetProducts } from "../../hooks/productHook"
 import { toast } from "react-toastify"
 import type { AxiosError } from "axios"
 import type { ErrorResponse } from "../../types/auth/authTypes"
@@ -55,6 +55,7 @@ const reducer = (state:sellUseReducerInitialState,action:SellAction) =>{
 function Home () {
     const [state,dispatch] = useReducer(reducer,initialState)
     const getProducts = useGetProducts()
+    const addToCart = useAddToCart()
     const [loading,setLoading] = useState<boolean>(false)
     const [category, setCategory] = useState<string>("allCategories");
 
@@ -80,6 +81,19 @@ function Home () {
     const handleViewMore = () => {
         dispatch({type:"page",payload:state.page+1})
     };
+
+    const addCart = async (id:string) => {
+        try {
+            setLoading(true)
+            const data = await addToCart(id)
+            setLoading(false)
+            toast.success(data.message)
+        } catch (error) {
+            const err = error as AxiosError<ErrorResponse>
+            setLoading(false)
+            toast.error(err.response?.data.message)
+        }
+    }
     return (
         <>
         {loading && <Loader />}
@@ -107,7 +121,7 @@ function Home () {
             <section className="products">
 
                 {state.products.map((product)=>(
-                    <Card key={product._id} product={product} setLoading={setLoading}/>
+                    <Card key={product._id} product={product} setLoading={setLoading} addCart={addCart}/>
                 ))}
 
             </section>
