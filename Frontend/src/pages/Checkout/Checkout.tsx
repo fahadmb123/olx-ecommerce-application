@@ -6,6 +6,7 @@ import { useGetCheckoutCartProducts, usePlaceCartProducts } from "../../hooks/pr
 import type { AxiosError } from "axios";
 import type { ErrorResponse } from "../../types/auth/authTypes";
 import { toast } from "react-toastify";
+import Loader from "../../components/Loader/Loader";
 
 
 
@@ -17,7 +18,7 @@ function Checkout() {
     const getCheckoutCartProducts = useGetCheckoutCartProducts()
     const [subtotal,setSubtotal] = useState(0)
     const placeCartProducts = usePlaceCartProducts()
-
+    const [loading,setLoading] = useState(false)
 
     useEffect(() => {
         const work = async () => {
@@ -51,21 +52,25 @@ function Checkout() {
 
     const handlePlaceOrder = async ()=>{
         try {
+            setLoading(true)
             if (!productId) {
                 await placeCartProducts()
+                navigate("/orderplaced")
             }
+            setLoading(false)
         } catch (error) {
             const err = error as AxiosError<ErrorResponse>
             toast.error(
                 err.response?.data.message || "Something went wrong",{toastId: "checkout-error" }
             )
+            setLoading(false)
             navigate(productId ? "/details" : "/cart")
         }
     }
     return (
         <div className="checkout-page">
 
-            {/* Main */}
+            {loading && (<Loader/>)}
             <main className="checkout-container">
 
                 <h1>Checkout</h1>
