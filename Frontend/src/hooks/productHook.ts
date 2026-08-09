@@ -8,6 +8,12 @@ export const useAddProduct = ()=>{
         return response.data
     }
 }
+export const useEditProduct = ()=>{
+    return async (data:FormData)=>{
+        const response = await axios.post("http://localhost:5000/auth/editProduct",data,{withCredentials: true})
+        return response.data
+    }
+}
 
 
 export const useGetAllUserProducts = ()=>{
@@ -25,3 +31,11 @@ export const useGetProducts = ()=>{
         return response.data
     },[])
 }
+
+export const useGetProduct = ()=>{
+    return useCallback(async (id:string)=>{
+        const response = await axios.get(`http://localhost:5000/auth/getProduct/${id}`,{withCredentials: true})
+        return response.data
+    },[])
+}
+

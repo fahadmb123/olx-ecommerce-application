@@ -5,7 +5,8 @@ import store from './redux/store'
 import { ToastContainer } from 'react-toastify'
 import { Suspense } from 'react'
 import Loader from './components/Loader/Loader'
-import HandleLoading from './components/HandleLoading'
+import AppRoutes from './routes/AppRoutes'
+
 
 
 
@@ -16,7 +17,7 @@ function App() {
       <Provider store={store}>
         <Suspense fallback={<Loader />}>
           <ToastContainer/>
-          <HandleLoading />
+          <AppRoutes />
         </Suspense>
       </Provider>
       </BrowserRouter>

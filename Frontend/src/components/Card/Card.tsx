@@ -1,8 +1,15 @@
+import { useNavigate } from "react-router-dom"
 import type { cardType } from "../../types/product/productTypes"
 import "./Card.css"
 
 
 function Card ({sell,product}:cardType){
+    const navigate = useNavigate()
+
+    const onEdit = (id:string)=>{
+        navigate(`/addedit/${id}`)
+    }
+    
     return (
         <>
             <div className="card">
@@ -28,7 +35,7 @@ function Card ({sell,product}:cardType){
 
                     {sell && (
                         <div className="buttons">
-                            <button className="view">Edit</button>
+                            {!product.solled && (<button className="view" onClick={()=>onEdit(product._id)}>Edit</button>)}
                             <button className="cart">Delete</button>
                         </div>
                     )}

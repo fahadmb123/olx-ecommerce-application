@@ -1,7 +1,10 @@
 import { Request ,Response,NextFunction} from "express";
-import { addProductService } from "../../services/productService";
+import { addProductService, editProductService } from "../../services/productService";
 import productModel from "../../models/productSchema";
 import verifyToken from "../../utils/verifyToken";
+
+
+
 export const addProduct = async (req:Request,res:Response,next:NextFunction) => {
     try {
         await addProductService(req)
@@ -13,6 +16,20 @@ export const addProduct = async (req:Request,res:Response,next:NextFunction) => 
         next(err)
     }
 }
+
+
+export const editProduct = async (req:Request,res:Response,next:NextFunction) => {
+    try {
+        await editProductService(req)
+        res.status(201).json({
+            success : true,
+            message : "Updated"
+        })
+    } catch (err) {
+        next(err)
+    }
+}
+
 
 
 
@@ -54,6 +71,24 @@ export const getProducts = async (req:Request,res:Response,next:NextFunction) =>
         return res.status(200).json({
             products,
             hasMore : notMore? false : true
+        })
+    } catch (err) {
+        next(err)
+    }
+}
+
+
+
+export const getProduct = async (req:Request,res:Response,next:NextFunction) => {
+    try {
+        const {id} = req.params
+        const token = req.cookies.token
+        const decoded = verifyToken(token)
+    
+        const product = await productModel.findOne({ userId: decoded.userId ,_id:id})
+        
+        return res.status(200).json({
+            product
         })
     } catch (err) {
         next(err)

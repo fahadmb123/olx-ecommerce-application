@@ -35,6 +35,7 @@ function AppRoutes () {
                     <Route path="cart" element={<Cart />}/>
                     <Route path="checkout" element={<Checkout />}/>
                     <Route path="addedit" element={<AddEditProduct />}/>
+                    <Route path="addedit/:id" element={<AddEditProduct />}/>
                 </Route>
             </Route>
         </Routes>

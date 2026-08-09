@@ -1,48 +1,91 @@
 import { useForm } from "react-hook-form";
 import "./AddEdit.css";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { productSchema, type ProductFormData } from "../../validation/productSchema";
-import { useAddProduct } from "../../hooks/productHook";
+import { editProductSchema, productSchema, type ProductFormData,type EditProductFormData } from "../../validation/productSchema";
+import { useAddProduct, useGetProduct } from "../../hooks/productHook";
 import { toast } from "react-toastify";
 import type { AxiosError } from "axios";
 import type { ErrorResponse } from "../../types/auth/authTypes";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../hooks/dispatchHook";
-import { setGlobalLoadingStateAction } from "../../features/UI/uiLoadingSlice";
+import { useNavigate, useParams } from "react-router-dom";
+import type { Product } from "../../types/product/productTypes";
+import { useEffect, useState } from "react";
+import Loader from "../Loader/Loader";
 
 function AddEdit() {
-    const dispatch = useAppDispatch()
+    const {id} = useParams()
+    const getProduct = useGetProduct()
     const navigate = useNavigate()
     const addProduct = useAddProduct()
-    const {register,handleSubmit,formState:{errors}} = useForm<ProductFormData>({
-        resolver : zodResolver(productSchema),mode : "onChange"
-    })
+    const [product, setProduct] = useState<Product | null>(null)
+    const [loading,setLoading] = useState<boolean>(false)
 
-    const onSubmit = async (data:ProductFormData)=>{
+    const schema = id ? editProductSchema : productSchema
+    type FormSchemaData = EditProductFormData | ProductFormData
+    const {watch,reset,register,handleSubmit,formState:{errors}} = useForm<FormSchemaData>({
+        resolver : zodResolver(schema),mode : "onChange"
+    })
+    
+    
+
+
+
+    useEffect(() => {
+        if (!id) return;
+
+        const editData = async () => {
+            try {
+                setLoading(true)
+                
+                const data = await getProduct(id)
+                setProduct(data.product)
+                reset({
+                    title: data.product.title,
+                    description: data.product.description,
+                    price: data.product.price,
+                    category: data.product.category,
+                });
+
+            } catch (error) {
+                const err = error as AxiosError<ErrorResponse>;
+                toast.error(err.response?.data.message);
+            } finally {
+                setLoading(false)
+            }
+        };
+
+        editData();
+
+    }, [id, getProduct, reset])
+    
+    const onSubmit = async (data:ProductFormData | EditProductFormData)=>{
         try {
-            dispatch(setGlobalLoadingStateAction(true))
+            setLoading(true)
             const formData = new FormData();
 
             formData.append("title", data.title);
             formData.append("description", data.description)
             formData.append("price", String(data.price))
             formData.append("category", String(data.category))
-            formData.append("image", data.image[0])
+            if (data.image) {
+                formData.append("image", data.image[0]);
+            }
 
             const result = await addProduct(formData)
             navigate("/sell", { replace: true })
-            dispatch(setGlobalLoadingStateAction(false))
+            setLoading(false)
             toast.success(result.message)
         } catch (error) {
             const err = error as AxiosError<ErrorResponse>
-            dispatch(setGlobalLoadingStateAction(false))
+            setLoading(false)
             toast.error(err.response?.data.message)
         }
             
     }
+    const image = watch("image")
     return (
+        
         <div className="add-edit-page">
-
+            {loading && <Loader />}
             <div className="add-edit-card">
 
                 <h1>Sell Your Product</h1>
@@ -118,7 +161,7 @@ function AddEdit() {
                     </div>
                     {errors.price && (<p className="auth-error">{errors.price.message}</p>)}
 
-
+                    
                     <div className="add-edit-form-group">
                         <label>Product Image</label>
 
@@ -126,6 +169,19 @@ function AddEdit() {
                             type="file"
                             accept="image/jpeg,image/png,image/webp"
                         />
+                        <div className="image-preview">
+                            {image?.[0] ? (
+                                <img
+                                    src={URL.createObjectURL(image[0])}
+                                    alt="New product preview"
+                                />
+                            ) : product?.image ? (
+                                <img
+                                    src={product.image}
+                                    alt={product.title}
+                                />
+                            ) : null}
+                        </div>
                     </div>
                     {errors.image && (<p className="auth-error">{errors.image.message}</p>)}
 
@@ -134,7 +190,7 @@ function AddEdit() {
                         type="submit"
                         className="add-edit-submit"
                     >
-                        Sell Product
+                        {id? "Update":"Sell"}
                     </button>
 
                 </form>
