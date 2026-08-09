@@ -2,7 +2,7 @@ import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
 import "./Checkout.css";
 import { useEffect, useState } from "react";
 import type { CartCardType } from "../../types/product/productTypes";
-import { useGetCheckoutCartProducts } from "../../hooks/productHook";
+import { useGetCheckoutCartProducts, usePlaceCartProducts } from "../../hooks/productHook";
 import type { AxiosError } from "axios";
 import type { ErrorResponse } from "../../types/auth/authTypes";
 import { toast } from "react-toastify";
@@ -16,6 +16,8 @@ function Checkout() {
     const [products,setProducts] = useState<CartCardType[] | null>(null)
     const getCheckoutCartProducts = useGetCheckoutCartProducts()
     const [subtotal,setSubtotal] = useState(0)
+    const placeCartProducts = usePlaceCartProducts()
+
 
     useEffect(() => {
         const work = async () => {
@@ -50,8 +52,7 @@ function Checkout() {
     const handlePlaceOrder = async ()=>{
         try {
             if (!productId) {
-                const result = await getCheckoutCartProducts()
-                setProducts(result.data)
+                const result = await placeCartProducts()
             }
         } catch (error) {
             const err = error as AxiosError<ErrorResponse>
@@ -115,7 +116,7 @@ function Checkout() {
                     </section>
 
 
-                    {/* Order Summary */}
+                  
                     <aside className="checkout-summary">
 
                         <h2>Order Summary</h2>

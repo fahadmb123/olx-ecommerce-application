@@ -109,3 +109,38 @@ export const getCheckoutCartProductsService = async (req:Request) => {
     return cart?.items
 }
 
+
+
+export const placeCartProductsService = async (req:Request) => {
+    const token = req.cookies.token
+    const decoded = verifyToken(token)
+    const cart = await cartModel.findOne({userId: decoded.userId}).populate({path: "items.productId"})
+
+    const isSolled = cart?.items.some(
+        (data) => (data.productId as any)?.solled === true
+    )
+    
+    if (isSolled) {
+        throw new Error("Some products not available")
+    }
+    await cartModel.updateOne(
+        {
+            userId: decoded.userId
+        },
+        {
+            $set: {
+                items: []
+            }
+        }
+    )
+    const productIds = cart?.items.map((item) => item.productId);
+
+    await productModel.updateMany(
+        { _id: { $in: productIds }},
+        {
+            $set: { sold: true }
+        }
+    )
+
+    return 
+}

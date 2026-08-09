@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express"
-import { addToCartService, getCartProductsService, getCheckoutCartProductsService, remCartService } from "../../services/cartService"
+import { addToCartService, getCartProductsService, getCheckoutCartProductsService, placeCartProductsService, remCartService } from "../../services/cartService"
 
 
 export const addToCart = async (req:Request,res:Response,next:NextFunction) => {
@@ -57,3 +57,18 @@ export const getCheckoutCartProducts = async (req:Request,res:Response,next:Next
         next(err)
     }
 }
+
+
+
+export const placeCartProducts = async (req:Request,res:Response,next:NextFunction) => {
+    try {
+        await placeCartProductsService(req)
+        res.status(201).json({
+            success : true,
+            message : "Ordered"
+        })
+    } catch (err) {
+        next(err)
+    }
+}
+

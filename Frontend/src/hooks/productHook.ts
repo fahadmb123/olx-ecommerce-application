@@ -81,3 +81,11 @@ export const useGetCheckoutCartProducts = ()=>{
         return response.data
     },[])
 }
+
+
+export const usePlaceCartProducts = ()=>{
+    return useCallback(async ()=>{
+        const response = await axios.get(`http://localhost:5000/auth/placeCartProducts`,{withCredentials:true})
+        return response.data
+    },[])
+}
