@@ -52,7 +52,7 @@ function Cart() {
                     <section className="cart-items">
 
                        {products?.map((product)=>(
-                            <Card product={product}/>
+                            <Card key={product.productId._id} product={product}/>
                         ))}
                        
 

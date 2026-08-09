@@ -63,3 +63,9 @@ export const useGetCartProducts = ()=>{
     },[])
 }
 
+export const useIncCart = ()=>{
+    return useCallback(async (id:string)=>{
+        const response = await axios.patch(`http://localhost:5000/auth/incCart/${id}`,{},{withCredentials:true})
+        return response.data
+    },[])
+}
