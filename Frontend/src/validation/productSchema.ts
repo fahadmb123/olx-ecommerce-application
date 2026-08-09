@@ -71,9 +71,6 @@ export const productSchema = z.object({
     price: z
         .number()
         .positive("Price must be greater than 0"),
-    quantity: z
-        .number()
-        .nonnegative("Quantity cannot be negative"),
 
     image: imageValidation,
 })
@@ -97,9 +94,6 @@ export const editProductSchema = z.object({
     price: z
         .number()
         .positive("Price must be greater than 0"),
-    quantity: z
-        .number()
-        .nonnegative("Quantity cannot be negative"),
 
     category: z
         .string()

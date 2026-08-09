@@ -42,9 +42,11 @@ function Cart() {
 
                 <div className="cart-header">
                     <h1>My Cart</h1>
+                    {products?.length == 0 && (<h1>No products</h1>)}
                     <span>3 Items</span>
+                    
                 </div>
-
+                
 
                 <div className="cart-content">
 
@@ -52,11 +54,12 @@ function Cart() {
                     <section className="cart-items">
 
                        {products?.map((product)=>(
-                            <Card key={product.productId._id} product={product}/>
+                            <Card setProducts={setProducts} key={product.productId._id} product={product}/>
                         ))}
                        
 
                     </section>
+                    
 
 
                     
@@ -87,12 +90,16 @@ function Cart() {
                         >
                             Proceed to Checkout
                         </NavLink>
+                        
 
                     </aside>
+                    
 
                 </div>
+                
 
             </main>
+            
 
         </div>
     );

@@ -69,13 +69,13 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     margin-bottom: 25px;
 }
 
 .cart-header h1 {
     color: #002f34;
     font-size: 30px;
+
 }
 
 .cart-header span {

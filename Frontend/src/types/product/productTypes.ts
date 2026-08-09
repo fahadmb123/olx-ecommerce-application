@@ -3,7 +3,6 @@ import type { Dispatch } from "react";
 
 
 export type Product = {
-    quantity:number;
     _id:string
     title: string;
     description: string;
@@ -50,6 +49,5 @@ export type SellAction =
 
 export type CartCardType = {
     _id: string;
-    count: number;
     productId: Product;
 }

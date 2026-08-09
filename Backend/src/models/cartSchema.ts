@@ -15,11 +15,6 @@ const cartSchema = new mongoose.Schema({
                 type : mongoose.Schema.Types.ObjectId,
                 ref : "product",
                 required : true
-            },
-            count : {
-                type : Number,
-                required : true,
-                min : 1
             }
         }
     ]

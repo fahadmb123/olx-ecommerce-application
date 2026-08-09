@@ -1,35 +1,37 @@
 import "./CartCard.css";
 import type { CartCardType } from "../../types/product/productTypes";
-import { useState } from "react";
-import { useDecCart, useIncCart } from "../../hooks/productHook";
+import {  useRemCart } from "../../hooks/productHook";
 import type { AxiosError } from "axios";
 import type { ErrorResponse } from "../../types/auth/authTypes";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 interface CardProps {
     product: CartCardType;
+    setProducts: React.Dispatch<
+        React.SetStateAction<CartCardType[] | null>
+    >;
 }
 
-function Card({ product }: CardProps) {
-    const [count, setCount] = useState(product.count);
-    const [stock, setStock] = useState(product.productId.quantity);
-    const incCart = useIncCart()
-    const decCart = useDecCart()
-    const handleInc = async ()=>{
+function Card({ product,setProducts }: CardProps) {
+
+    const remCart = useRemCart()
+    const navigate = useNavigate()
+    
+
+    const handleRemove = async ()=>{
         try{
-            const data = await incCart(product.productId._id)
-            setStock(data.quantity)
-            setCount(data.count)
-        }catch (error){
-            const err = error as AxiosError<ErrorResponse>
-            toast.error(err.response?.data.message)
-        }
-    }
-    const handleDec = async ()=>{
-        try{
-            const data = await decCart(product.productId._id)
-            setStock(data.quantity)
-            setCount(data.count)
+           
+            const data = await remCart(product.productId._id)
+            navigate("/cart")
+
+            setProducts(prev =>
+                prev?.filter(
+                    item => item.productId._id !== product.productId._id
+                ) ?? null
+            )
+
+            toast.success(data.message)
         }catch (error){
             const err = error as AxiosError<ErrorResponse>
             toast.error(err.response?.data.message)
@@ -57,19 +59,11 @@ function Card({ product }: CardProps) {
                             .join(" ")}
                     </h2>
 
-                    {product.productId.solled ? (
+                    {product.productId.solled && (
                         <div className="sold-badge">
                             SOLD OUT
                         </div>
-                        ) : stock === 0 ? (
-                        <span className="stock-badge sold-out">
-                            Out Of Stock
-                        </span>
-                        ) : stock <= 5 ? (
-                        <span className="stock-badge">
-                            {stock} Left
-                        </span>
-                    ) : null}
+                    )}
                     
                 </div>
 
@@ -88,17 +82,9 @@ function Card({ product }: CardProps) {
                     ₹{product.productId.price.toLocaleString("en-IN")}
                 </h3>
 
-                {!product.productId.solled && product.productId.quantity !== 0 ? (<div className="quantity">
+    
 
-                    <button onClick={()=>handleDec()}>-</button>
-
-                    <span>{count}</span>
-
-                    <button onClick={()=>handleInc()}> +</button>
-
-                </div>):null}
-
-                <button className="remove-button">
+                <button onClick={()=>handleRemove()} className="remove-button">
                     Remove
                 </button>
 

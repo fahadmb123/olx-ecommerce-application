@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express"
-import { addToCartService, decCartService, getCartProductsService, incCartService } from "../../services/cartService"
+import { addToCartService, getCartProductsService, remCartService } from "../../services/cartService"
 
 
 export const addToCart = async (req:Request,res:Response,next:NextFunction) => {
@@ -30,26 +30,13 @@ export const getCartProducts = async (req:Request,res:Response,next:NextFunction
 }
 
 
-
-export const incCart = async (req:Request,res:Response,next:NextFunction) => {
+export const remCart = async (req:Request,res:Response,next:NextFunction) => {
     try {
-       
-        const data = await incCartService(req)
+        
+        await remCartService(req)
         res.status(201).json({
-            quantity:data.quantity,
-            count:data.count
-        })
-    } catch (err) {
-        next(err)
-    }
-}
-export const decCart = async (req:Request,res:Response,next:NextFunction) => {
-    try {
-       
-        const data = await decCartService(req)
-        res.status(201).json({
-            quantity:data.quantity,
-            count:data.count
+            success:true,
+            message:"Product Removed"
         })
     } catch (err) {
         next(err)

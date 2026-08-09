@@ -8,7 +8,7 @@ import verifyToken from "../utils/verifyToken";
 
 export const addProductService = async (req:Request) => {
     
-    const { title, description, price, category ,quantity} = req.body
+    const { title, description, price, category } = req.body
     const image = req.file
     const token = req.cookies.token
     const decoded = verifyToken(token)
@@ -30,8 +30,7 @@ export const addProductService = async (req:Request) => {
         price,
         category,
         image:imageUrl,
-        userId:decoded.userId,
-        quantity
+        userId:decoded.userId
     })
     
     await newProduct.save()
@@ -44,7 +43,7 @@ export const addProductService = async (req:Request) => {
 
 export const editProductService = async (req:Request) => {
     const {id} = req.params
-    const { title, description, price, category,quantity } = req.body
+    const { title, description, price, category } = req.body
     const image = req.file
     const token = req.cookies.token
     const decoded = verifyToken(token)
@@ -67,8 +66,7 @@ export const editProductService = async (req:Request) => {
         oldProduct.title === title &&
         oldProduct.description === description &&
         oldProduct.price === price &&
-        oldProduct.category === category &&
-        oldProduct.quantity === quantity
+        oldProduct.category === category
 
     await productModel.updateOne({_id:id},{
         title,
@@ -76,7 +74,6 @@ export const editProductService = async (req:Request) => {
         price,
         category,
         image:imageUrl,
-        quantity,
         userId:decoded.userId
     })
    
