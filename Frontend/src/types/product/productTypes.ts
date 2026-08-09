@@ -49,5 +49,7 @@ export type SellAction =
 
 
 export type CartCardType = {
-    product : Product
+    _id: string;
+    count: number;
+    productId: Product;
 }

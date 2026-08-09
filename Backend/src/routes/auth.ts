@@ -24,7 +24,7 @@ Router.get("/getProducts",authenticate,getProducts)
 Router.get("/getProduct/:id",authenticate,getProduct)
 Router.get("/deleteProduct/:id",authenticate,deleteProduct)
 Router.get("/addToCart/:id",authenticate,addToCart)
-Router.get("/getCartProducts/:id",authenticate,getCartProducts)
+Router.get("/getCartProducts",authenticate,getCartProducts)
 
 
 

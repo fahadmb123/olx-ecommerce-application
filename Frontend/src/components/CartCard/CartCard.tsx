@@ -1,9 +1,15 @@
 import "./CartCard.css"
 import type { CartCardType } from "../../types/product/productTypes"
+import { useState } from "react";
 
 
-function Card ({product}:CartCardType){
-    console.log(product)
+
+interface CardProps {
+    product: CartCardType;
+}
+
+function Card ({product}:CardProps){
+    const [count,setCount] = useState(product.count)
     return (
         <>
             <div className="cart-item">
@@ -15,19 +21,23 @@ function Card ({product}:CartCardType){
 
                 <div className="cart-item-details">
 
-                    <h2>iPhone 15</h2>
+                    <h2>{product.productId.title.split(" ")
+                        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                        .join(" ")}</h2>
 
                     <p className="category">
-                        Mobile
+                        {product.productId.category.split(" ")
+                        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                        .join(" ")}
                     </p>
 
-                    <h3>₹55,000</h3>
+                    <h3>₹{product.productId.price.toLocaleString("en-IN")}</h3>
 
                     <div className="quantity">
 
                         <button>-</button>
 
-                        <span>1</span>
+                        <span>{count}</span>
 
                         <button>+</button>
 

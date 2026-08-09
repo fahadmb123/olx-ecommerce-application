@@ -3,7 +3,7 @@ import "./Cart.css";
 import Card from "../../components/CartCard/CartCard";
 import { useEffect, useState } from "react";
 import { useGetCartProducts } from "../../hooks/productHook";
-import type { Product } from "../../types/product/productTypes";
+import type { CartCardType } from "../../types/product/productTypes";
 import type { AxiosError } from "axios";
 import type { ErrorResponse } from "../../types/auth/authTypes";
 import { toast } from "react-toastify";
@@ -12,7 +12,7 @@ import Loader from "../../components/Loader/Loader";
 
 function Cart() {
     const getProducts = useGetCartProducts()
-    const [products,setProducts] = useState<Product[] | null>(null)
+    const [products,setProducts] = useState<CartCardType[] | null>(null)
     const [loading,setLoading] = useState(false)
 
 
@@ -21,9 +21,9 @@ function Cart() {
         const fetchProducts = async ()=>{
             try {
                 setLoading(true)     
-                const data = await getProducts()
-                setProducts(data.products)
-
+                const result = await getProducts()
+                setProducts(result.data)
+                
             } catch (error) {
                 const err = error as AxiosError<ErrorResponse>
                 toast.error(err.response?.data.message)
