@@ -14,7 +14,7 @@ function Cart() {
     const getProducts = useGetCartProducts()
     const [products,setProducts] = useState<CartCardType[] | null>(null)
     const [loading,setLoading] = useState(false)
-
+    const [subtotal,setSubtotal] = useState(0)
 
     
     useEffect(()=>{
@@ -33,6 +33,18 @@ function Cart() {
         }
         fetchProducts()
     },[])
+    useEffect(() => {
+         const summary = async ()=>{
+            const subtotal = products?.reduce((acc, curr) => {
+                return acc + (curr.productId.price || 0);
+            }, 0) ?? 0;
+            setSubtotal(subtotal)
+        }
+        summary()
+    }, [products]);
+
+
+
 
     return (
         <div className="cart-page">
@@ -43,7 +55,7 @@ function Cart() {
                 <div className="cart-header">
                     <h1>My Cart</h1>
                     {products?.length == 0 && (<h1>No products</h1>)}
-                    <span>3 Items</span>
+                    <span>{products?.length === 0 ? "No" : products?.length} Items</span>
                     
                 </div>
                 
@@ -69,23 +81,23 @@ function Cart() {
 
                         <div className="summary-row">
                             <span>Items</span>
-                            <span>4</span>
+                            <span>{products?.length}</span>
                         </div>
 
                         <div className="summary-row">
                             <span>Subtotal</span>
-                            <span>₹88,000</span>
+                            <span>₹{subtotal.toLocaleString("en-IN")}</span>
                         </div>
 
                         <div className="summary-line"></div>
 
                         <div className="total-row">
                             <span>Total</span>
-                            <strong>₹88,000</strong>
+                            <strong>₹{subtotal.toLocaleString("en-IN")}</strong>
                         </div>
 
                         <NavLink
-                            to="/checkout"
+                            to={`/checkout?cart=${true}`}
                             className="checkout-button"
                         >
                             Proceed to Checkout
