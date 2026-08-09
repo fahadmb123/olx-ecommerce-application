@@ -29,7 +29,9 @@ function Card ({sell,product,setLoading,dispatch,addCart}:cardType){
             toast.error(err.response?.data.message)
         }
     }
-    
+    const handleView=(id:string)=>{
+        navigate(`/details/${id}`)
+    }
     return (
         <>
             <div className="card">
@@ -62,7 +64,7 @@ function Card ({sell,product,setLoading,dispatch,addCart}:cardType){
                     )}
                     {!sell && (
                         <div className="buttons">
-                            <button className="view">View</button>
+                            <button onClick={()=>handleView(product._id)} className="view">View</button>
                             <button onClick={()=>addCart?.(product._id)} className="cart">Add Cart</button>
                         </div>
                     )}

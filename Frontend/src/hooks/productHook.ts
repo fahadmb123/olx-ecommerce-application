@@ -22,6 +22,8 @@ export const useDeleteProduct = ()=>{
 }
 
 
+
+
 export const useGetAllUserProducts = ()=>{
     return useCallback(async (page:number,limit:number)=>{
         const response = await axios.get(`http://localhost:5000/auth/getUserProducts?limit=${limit}&page=${page}`,{withCredentials:true})
@@ -39,8 +41,8 @@ export const useGetProducts = ()=>{
 }
 
 export const useGetProduct = ()=>{
-    return useCallback(async (id:string)=>{
-        const response = await axios.get(`http://localhost:5000/auth/getProduct/${id}`,{withCredentials: true})
+    return useCallback(async (id:string,details?:boolean)=>{
+        const response = await axios.get(`http://localhost:5000/auth/getProduct/${id}?details=${details}`,{withCredentials: true})
         return response.data
     },[])
 }
@@ -89,3 +91,5 @@ export const usePlaceCartProducts = ()=>{
         return response.data
     },[])
 }
+
+

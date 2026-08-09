@@ -30,7 +30,7 @@ function AppRoutes () {
             </Route>
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />}/>
-                <Route path="details" element={<ProductDetails />}/>
+                <Route path="details/:id" element={<ProductDetails />}/>
                 <Route element={<ProtectedRoute/>}>
                     <Route path="sell" element={<Sell />}/>
                     <Route path="cart" element={<Cart />}/>

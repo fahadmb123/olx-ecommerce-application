@@ -112,10 +112,17 @@ export const getProducts = async (req:Request,res:Response,next:NextFunction) =>
 export const getProduct = async (req:Request,res:Response,next:NextFunction) => {
     try {
         const {id} = req.params
+        const details = req.query.details
         const token = req.cookies.token
         const decoded = verifyToken(token)
-    
-        const product = await productModel.findOne({ userId: decoded.userId ,_id:id})
+       
+        let product
+        if (details) {
+            product = await productModel.findOne({_id:id})
+        }else {
+            product = await productModel.findOne({ userId: decoded.userId ,_id:id})
+        }
+        console.log("Calleldddd")
         
         return res.status(200).json({
             product
