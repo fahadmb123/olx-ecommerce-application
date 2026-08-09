@@ -133,12 +133,12 @@ export const placeCartProductsService = async (req:Request) => {
             }
         }
     )
-    const productIds = cart?.items.map((item) => item.productId);
-
+    const productIds = cart?.items.map((item) => item.productId._id);
+    
     await productModel.updateMany(
         { _id: { $in: productIds }},
         {
-            $set: { sold: true }
+            $set: { solled: true }
         }
     )
 
