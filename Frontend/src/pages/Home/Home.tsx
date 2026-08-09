@@ -56,13 +56,14 @@ function Home () {
     const [state,dispatch] = useReducer(reducer,initialState)
     const getProducts = useGetProducts()
     const [loading,setLoading] = useState<boolean>(false)
+    const [category, setCategory] = useState<string>("allCategories");
 
     useEffect(()=>{
         const fetchProducts = async ()=>{
             try {
                 dispatch({type:"loading",payload:true})
                         
-                const data = await getProducts(state.page,9)
+                const data = await getProducts(state.page,9,category)
                 dispatch({type:"products",payload:data.products})
                 dispatch({type:"hasMore",payload:data.hasMore})
                 
@@ -84,15 +85,16 @@ function Home () {
         {loading && <Loader />}
             <section className="filter-section">
 
-                <select>
-                    <option>All Categories</option>
-                    <option>Mobiles</option>
-                    <option>Electronics</option>
-                    <option>Furniture</option>
-                    <option>Vehicles</option>
+                <select value={category} onChange={(e)=>setCategory(e.target.value)}>
+                    <option value="allCategories">All Categories</option>
+                    <option value="laptop">Laptop</option>
+                    <option value="mobiles">Mobiles</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="furniture">Furniture</option>
+                    <option value="vehicles">Vehicles</option>
                 </select>
 
-                <button>Apply</button>
+                {/*<button>Apply</button>*/}
 
             </section>
 

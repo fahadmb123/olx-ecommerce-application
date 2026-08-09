@@ -32,8 +32,8 @@ export const useGetAllUserProducts = ()=>{
 
 
 export const useGetProducts = ()=>{
-    return useCallback(async (page:number,limit:number)=>{
-        const response = await axios.get(`http://localhost:5000/auth/getProducts?limit=${limit}&page=${page}`,{withCredentials:true})
+    return useCallback(async (page:number,limit:number,filter:string)=>{
+        const response = await axios.get(`http://localhost:5000/auth/getProducts?limit=${limit}&page=${page}&filter=${filter}`,{withCredentials:true})
         return response.data
     },[])
 }
