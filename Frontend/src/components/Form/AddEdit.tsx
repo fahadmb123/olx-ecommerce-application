@@ -48,6 +48,7 @@ function AddEdit() {
                     description: data.product.description,
                     price: data.product.price,
                     category: data.product.category,
+                    quantity:data.product.quantity
                 });
 
             } catch (error) {
@@ -71,6 +72,8 @@ function AddEdit() {
             formData.append("description", data.description)
             formData.append("price", String(data.price))
             formData.append("category", String(data.category))
+            formData.append("quantity", String(data.quantity))
+            
             
             if (data.image && data.image.length > 0) {
                 formData.append("image", data.image[0])
@@ -121,7 +124,6 @@ function AddEdit() {
                     </div>
                     {errors.title && (<p className="auth-error">{errors.title.message}</p>)}
 
-
                     <div className="add-edit-form-group">
                         <label>Description</label>
 
@@ -131,6 +133,24 @@ function AddEdit() {
                         />
                     </div>
                     {errors.description && (<p className="auth-error">{errors.description.message}</p>)}
+
+
+                    <div className="add-edit-form-row">
+
+                        <div className="add-edit-form-group">
+                            <label>Quantity</label>
+
+                            <input {...register("quantity",{valueAsNumber:true})}
+                                type="number"
+                                placeholder="Enter Quantity"
+                            />
+                        </div>
+                        
+
+                        <div className="add-edit-form-group"></div>
+
+                    </div>
+                     {errors.quantity && (<p className="auth-error">{errors.quantity.message}</p>)}
 
 
                     <div className="add-edit-form-row">

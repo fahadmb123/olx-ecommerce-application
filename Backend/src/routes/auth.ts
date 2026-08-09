@@ -22,6 +22,7 @@ Router.get("/getUserProducts",authenticate,getUserProducts)
 Router.get("/getProducts",authenticate,getProducts)
 Router.get("/getProduct/:id",authenticate,getProduct)
 Router.get("/deleteProduct/:id",authenticate,deleteProduct)
+Router.get("/addToCart/:id",authenticate,deleteProduct)
 
 
 

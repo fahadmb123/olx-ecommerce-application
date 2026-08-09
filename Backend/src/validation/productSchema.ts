@@ -18,6 +18,9 @@ export const productSchema = z.object({
   price: z.coerce
     .number()
     .positive("Price must be greater than 0"),
+  quantity: z.coerce
+    .number()
+    .nonnegative("Quantity cannot be negative"),
   category: z
     .string()
     .min(1, "Category is required")

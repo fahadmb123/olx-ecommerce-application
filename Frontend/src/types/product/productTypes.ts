@@ -3,6 +3,7 @@ import type { Dispatch } from "react";
 
 
 export type Product = {
+    quantity:number;
     _id:string
     title: string;
     description: string;

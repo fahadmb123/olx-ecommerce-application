@@ -5,12 +5,12 @@ import verifyToken from "../utils/verifyToken";
 
 export const addProductService = async (req:Request) => {
     
-    const { title, description, price, category } = req.body
+    const { title, description, price, category ,quantity} = req.body
     const image = req.file
     const token = req.cookies.token
     const decoded = verifyToken(token)
     const isDuplicate = await productModel.findOne({title})
-
+    
     if (isDuplicate) {
         throw new Error("Product title already exist")
     }
@@ -27,7 +27,8 @@ export const addProductService = async (req:Request) => {
         price,
         category,
         image:imageUrl,
-        userId:decoded.userId
+        userId:decoded.userId,
+        quantity
     })
     
     await newProduct.save()
@@ -40,7 +41,7 @@ export const addProductService = async (req:Request) => {
 
 export const editProductService = async (req:Request) => {
     const {id} = req.params
-    const { title, description, price, category } = req.body
+    const { title, description, price, category,quantity } = req.body
     const image = req.file
     const token = req.cookies.token
     const decoded = verifyToken(token)
@@ -63,7 +64,8 @@ export const editProductService = async (req:Request) => {
         oldProduct.title === title &&
         oldProduct.description === description &&
         oldProduct.price === price &&
-        oldProduct.category === category
+        oldProduct.category === category &&
+        oldProduct.quantity === quantity
 
     await productModel.updateOne({_id:id},{
         title,
@@ -71,6 +73,7 @@ export const editProductService = async (req:Request) => {
         price,
         category,
         image:imageUrl,
+        quantity,
         userId:decoded.userId
     })
    
@@ -87,6 +90,23 @@ export const deleteProductService = async (req:Request) => {
     if (!isExist) {
         throw new Error("Product doesn't exist")
     }
+
+   await productModel.deleteOne({_id:id})
+ 
+    return
+}
+
+
+
+export const addToCartService = async (req:Request) => {
+    const {id} = req.params
+
+    const isExist = await productModel.findById(id)
+
+    if (!isExist) {
+        throw new Error("Product doesn't exist")
+    }
+
 
    await productModel.deleteOne({_id:id})
  

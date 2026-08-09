@@ -5,8 +5,24 @@ import verifyToken from "../../utils/verifyToken";
 
 
 
+export const addToCart = async (req:Request,res:Response,next:NextFunction) => {
+    try {
+        await addProductService(req)
+        res.status(201).json({
+            success : true,
+            message : "Product added"
+        })
+    } catch (err) {
+        next(err)
+    }
+}
+
+
+
+
 export const addProduct = async (req:Request,res:Response,next:NextFunction) => {
     try {
+        
         await addProductService(req)
         res.status(201).json({
             success : true,

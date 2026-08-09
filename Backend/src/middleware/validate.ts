@@ -11,7 +11,6 @@ const validate = (schema: ZodSchema) =>
             errors: result.error.flatten().fieldErrors,
         });
     }
-
     req.body = result.data;
     next();
   };
