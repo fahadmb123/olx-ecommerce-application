@@ -72,15 +72,28 @@ export const getUserProducts = async (req:Request,res:Response,next:NextFunction
 
 export const getProducts = async (req:Request,res:Response,next:NextFunction) => {
     try {
+        const filter = req.query.filter?.toString() || "allCategories"
         const page = Number(req.query.page)
         const limit = Number(req.query.limit)
         const skip = (page - 1) * limit
+        let query;
 
+        if (filter === "allCategories"){
+            query = {solled:false}
+        }else{
+            query = {
+                solled:false,
+                category:filter
+            }
+        }
+
+        
         const products = await productModel
-            .find({ solled: false })
+            .find(query)
             .skip(skip)
             .limit(limit)
             .sort({ updatedAt: -1 })
+          
         const notMore = products.length < limit
         return res.status(200).json({
             products,

@@ -75,7 +75,7 @@ function Home () {
             }
         }
         fetchProducts()
-    },[getProducts,state.page])
+    },[getProducts,state.page,category])
 
     const handleViewMore = () => {
         dispatch({type:"page",payload:state.page+1})
@@ -88,13 +88,13 @@ function Home () {
                 <select value={category} onChange={(e)=>setCategory(e.target.value)}>
                     <option value="allCategories">All Categories</option>
                     <option value="laptop">Laptop</option>
-                    <option value="mobiles">Mobiles</option>
+                    <option value="mobile">Mobiles</option>
                     <option value="electronics">Electronics</option>
                     <option value="furniture">Furniture</option>
                     <option value="vehicles">Vehicles</option>
                 </select>
 
-                {/*<button>Apply</button>*/}
+              
 
             </section>
 

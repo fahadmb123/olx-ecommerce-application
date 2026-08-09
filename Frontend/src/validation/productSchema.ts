@@ -66,7 +66,7 @@ export const productSchema = z.object({
 
     category: z
         .string()
-        .min(1, "Category is required"),
+        .min(1, "Category is required").toLowerCase(),
 
     price: z
         .number()
@@ -97,7 +97,7 @@ export const editProductSchema = z.object({
 
     category: z
         .string()
-        .min(1, "Category is required"),
+        .min(1, "Category is required").toLowerCase(),
 
     image: editImageValidation,
 })
