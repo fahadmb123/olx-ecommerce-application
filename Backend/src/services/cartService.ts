@@ -157,14 +157,10 @@ export const decCartService = async (req: Request) => {
         throw new Error("Product doesn't exist");
     }
 
-    if (product.quantity <= 0) {
-        throw new Error("Out Of Quantity");
-    }
-
     const cart = await cartModel.findOne({
         userId: decoded.userId,
         "items.productId": id as string
-    })
+    });
 
     if (!cart) {
         throw new Error("Product not found in cart");
@@ -178,12 +174,8 @@ export const decCartService = async (req: Request) => {
         throw new Error("Product not found in cart");
     }
 
-    if (cartItem.count >= 6) {
-        throw new Error("Max limit 6 reached");
-    }
-
-    if (cartItem.count >= product.quantity) {
-        throw new Error(`${product.quantity} Quantity Left`);
+    if (cartItem.count <= 1) {
+        throw new Error("Min limit is 1");
     }
 
     await cartModel.updateOne(
@@ -193,13 +185,13 @@ export const decCartService = async (req: Request) => {
         },
         {
             $inc: {
-                "items.$.count": 1
+                "items.$.count": -1
             }
         }
     );
 
     return {
         quantity: product.quantity,
-        count: cartItem.count + 1
-    };
-};
+        count: cartItem.count - 1
+    }
+}

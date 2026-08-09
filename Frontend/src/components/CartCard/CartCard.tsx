@@ -1,7 +1,7 @@
 import "./CartCard.css";
 import type { CartCardType } from "../../types/product/productTypes";
 import { useState } from "react";
-import { useIncCart } from "../../hooks/productHook";
+import { useDecCart, useIncCart } from "../../hooks/productHook";
 import type { AxiosError } from "axios";
 import type { ErrorResponse } from "../../types/auth/authTypes";
 import { toast } from "react-toastify";
@@ -14,6 +14,7 @@ function Card({ product }: CardProps) {
     const [count, setCount] = useState(product.count);
     const [stock, setStock] = useState(product.productId.quantity);
     const incCart = useIncCart()
+    const decCart = useDecCart()
     const handleInc = async ()=>{
         try{
             const data = await incCart(product.productId._id)
@@ -26,7 +27,7 @@ function Card({ product }: CardProps) {
     }
     const handleDec = async ()=>{
         try{
-            const data = await incCart(product.productId._id)
+            const data = await decCart(product.productId._id)
             setStock(data.quantity)
             setCount(data.count)
         }catch (error){
