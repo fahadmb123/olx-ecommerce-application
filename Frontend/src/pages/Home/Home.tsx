@@ -1,11 +1,12 @@
 import "./Home.css"
 import Card from "../../components/Card/Card"
 import type { SellAction, sellUseReducerInitialState } from "../../types/product/productTypes"
-import { useEffect, useReducer } from "react"
+import { useEffect, useReducer, useState } from "react"
 import { useGetProducts } from "../../hooks/productHook"
 import { toast } from "react-toastify"
 import type { AxiosError } from "axios"
 import type { ErrorResponse } from "../../types/auth/authTypes"
+import Loader from "../../components/Loader/Loader"
 
 
 
@@ -54,6 +55,7 @@ const reducer = (state:sellUseReducerInitialState,action:SellAction) =>{
 function Home () {
     const [state,dispatch] = useReducer(reducer,initialState)
     const getProducts = useGetProducts()
+    const [loading,setLoading] = useState<boolean>(false)
 
     useEffect(()=>{
         const fetchProducts = async ()=>{
@@ -79,6 +81,7 @@ function Home () {
     };
     return (
         <>
+        {loading && <Loader />}
             <section className="filter-section">
 
                 <select>
@@ -102,7 +105,7 @@ function Home () {
             <section className="products">
 
                 {state.products.map((product)=>(
-                    <Card key={product._id} product={product}/>
+                    <Card key={product._id} product={product} setLoading={setLoading}/>
                 ))}
 
             </section>

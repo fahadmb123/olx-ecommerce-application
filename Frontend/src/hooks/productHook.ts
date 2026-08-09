@@ -14,6 +14,12 @@ export const useEditProduct = ()=>{
         return response.data
     }
 }
+export const useDeleteProduct = ()=>{
+    return async (id:string)=>{
+        const response = await axios.get(`http://localhost:5000/auth/deleteProduct/${id}`,{withCredentials: true})
+        return response.data
+    }
+}
 
 
 export const useGetAllUserProducts = ()=>{

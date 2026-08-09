@@ -11,6 +11,10 @@ import type { Product } from "../../types/product/productTypes";
 import { useEffect, useState } from "react";
 import Loader from "../Loader/Loader";
 
+
+
+
+
 function AddEdit() {
     const {id} = useParams()
     const getProduct = useGetProduct()
@@ -89,6 +93,9 @@ function AddEdit() {
             
     }
     const image = watch("image")
+
+
+
     return (
         
         <div className="add-edit-page">

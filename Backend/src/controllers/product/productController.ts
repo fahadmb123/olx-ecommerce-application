@@ -1,5 +1,5 @@
 import { Request ,Response,NextFunction} from "express";
-import { addProductService, editProductService } from "../../services/productService";
+import { addProductService, deleteProductService, editProductService } from "../../services/productService";
 import productModel from "../../models/productSchema";
 import verifyToken from "../../utils/verifyToken";
 
@@ -31,6 +31,19 @@ export const editProduct = async (req:Request,res:Response,next:NextFunction) =>
     }
 }
 
+
+export const deleteProduct = async (req:Request,res:Response,next:NextFunction) => {
+    try {
+       await deleteProductService(req)
+        
+        res.status(201).json({
+            success : true,
+            message : "Product Deleted"
+        })
+    } catch (err) {
+        next(err)
+    }
+}
 
 
 

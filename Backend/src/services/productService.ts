@@ -77,3 +77,18 @@ export const editProductService = async (req:Request) => {
  
     return !image && same? "Nothing Changed" : "Updated"
 }
+
+
+export const deleteProductService = async (req:Request) => {
+    const {id} = req.params
+
+    const isExist = await productModel.findById(id)
+
+    if (!isExist) {
+        throw new Error("Product doesn't exist")
+    }
+
+   await productModel.deleteOne({_id:id})
+ 
+    return
+}

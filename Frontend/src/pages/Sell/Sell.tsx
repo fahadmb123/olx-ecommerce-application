@@ -1,12 +1,13 @@
 import "./Sell.css";
 import { useNavigate } from "react-router-dom";
 import Card from "../../components/Card/Card"
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { useGetAllUserProducts } from "../../hooks/productHook";
 import type { sellUseReducerInitialState,SellAction } from "../../types/product/productTypes";
 import { toast } from "react-toastify";
 import type { AxiosError } from "axios";
 import type { ErrorResponse } from "../../types/auth/authTypes";
+import Loader from "../../components/Loader/Loader";
 
 
 
@@ -41,6 +42,13 @@ const reducer = (state:sellUseReducerInitialState,action:SellAction) =>{
                 ...state,
                 hasMore : action.payload
             }
+        case "deleteProduct":
+            return {
+                ...state,
+                products: state.products.filter(
+                    (product) => product._id !== action.payload
+                )
+            }
         default:
             return state
     }
@@ -53,7 +61,7 @@ function Sell() {
     const navigate = useNavigate()
     const [state,dispatch] = useReducer(reducer,initialState)
     const getAllUserProducts = useGetAllUserProducts()
-   
+   const [loading,setLoading] = useState<boolean>(false)
 
 
     
@@ -74,14 +82,14 @@ function Sell() {
             }
         }
         fetchProducts()
-    },[getAllUserProducts,state.page])
+    },[getAllUserProducts,state.page,dispatch])
 
     const handleViewMore = () => {
         dispatch({type:"page",payload:state.page+1})
     };
     return (
         <main className="sell-container">
-
+            {loading && <Loader />}
             <section className="my-listings">
 
                 <div className="listings-header">
@@ -101,7 +109,7 @@ function Sell() {
 
                 <div className="listing-grid">
                     {state.products.map((product)=>(
-                        <Card sell={true} key={product._id} product={product}/>
+                        <Card sell={true} key={product._id} product={product} setLoading={setLoading} dispatch={dispatch}/>
                     ))}
                 </div>
                 {state.hasMore && (

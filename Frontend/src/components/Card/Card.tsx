@@ -1,19 +1,39 @@
 import { useNavigate } from "react-router-dom"
 import type { cardType } from "../../types/product/productTypes"
 import "./Card.css"
+import { useDeleteProduct } from "../../hooks/productHook"
+import type { ErrorResponse } from "../../types/auth/authTypes"
+import type { AxiosError } from "axios"
+import { toast } from "react-toastify"
 
 
-function Card ({sell,product}:cardType){
+
+function Card ({sell,product,setLoading,dispatch}:cardType){
     const navigate = useNavigate()
-
+    const deleteProduct = useDeleteProduct()
     const onEdit = (id:string)=>{
         navigate(`/addedit/${id}`)
+    }
+
+
+    const onDelete = async (id:string)=>{
+        try {
+            setLoading(true)
+            const result = await deleteProduct(id)
+            setLoading(false)
+            dispatch?.({type:"deleteProduct",payload:id})
+            toast.success(result.message)
+        } catch (error){
+            const err = error as AxiosError<ErrorResponse>
+            setLoading(false)
+            toast.error(err.response?.data.message)
+        }
     }
     
     return (
         <>
             <div className="card">
-
+                
                 {product.solled && (
                     <div className="sold-badge">
                         SOLD
@@ -36,7 +56,7 @@ function Card ({sell,product}:cardType){
                     {sell && (
                         <div className="buttons">
                             {!product.solled && (<button className="view" onClick={()=>onEdit(product._id)}>Edit</button>)}
-                            <button className="cart">Delete</button>
+                            <button onClick={()=>onDelete(product._id)} className="cart">Delete</button>
                         </div>
                     )}
                     {!sell && (

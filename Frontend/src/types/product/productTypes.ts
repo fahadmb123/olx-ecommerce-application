@@ -1,3 +1,7 @@
+import type { Dispatch } from "react";
+
+
+
 export type Product = {
     _id:string
     title: string;
@@ -27,7 +31,9 @@ export type sellUseReducerInitialState = {
 
 export type cardType = {
     sell?:boolean,
-    product:Product
+    product:Product,
+    setLoading:React.Dispatch<React.SetStateAction<boolean>>,
+    dispatch?: Dispatch<SellAction>
 }
 
 export type SellAction = 
@@ -35,3 +41,4 @@ export type SellAction =
     | { type: "loading"; payload: boolean }
     | { type: "page"; payload: number }
     | { type: "hasMore"; payload: boolean }
+    | { type: "deleteProduct"; payload: string }
