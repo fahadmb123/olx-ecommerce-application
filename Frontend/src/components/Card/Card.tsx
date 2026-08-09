@@ -39,6 +39,16 @@ function Card ({sell,product,setLoading,dispatch,addCart}:cardType){
                         SOLD
                     </div>
                 )}
+                {product.quantity <= 5 && product.quantity !== 0 && (
+                    <div className="sold-badge">
+                        {product.quantity} Left
+                    </div>
+                )}
+                {product.quantity === 0 && (
+                    <div className="sold-badge">
+                        Out Of Stock
+                    </div>
+                )}
                 <img src={product.image} />
                 <div className="details">
                     <h2>₹{product.price.toLocaleString("en-IN")}</h2>
@@ -62,7 +72,7 @@ function Card ({sell,product,setLoading,dispatch,addCart}:cardType){
                     {!sell && (
                         <div className="buttons">
                             <button className="view">View</button>
-                            <button onClick={()=>addCart?.(product._id)} className="cart">Add Cart</button>
+                            {product.quantity !== 0 && (<button onClick={()=>addCart?.(product._id)} className="cart">Add Cart</button>)}
                         </div>
                     )}
 
