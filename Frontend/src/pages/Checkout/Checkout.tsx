@@ -52,7 +52,7 @@ function Checkout() {
     const handlePlaceOrder = async ()=>{
         try {
             if (!productId) {
-                const result = await placeCartProducts()
+                await placeCartProducts()
             }
         } catch (error) {
             const err = error as AxiosError<ErrorResponse>
