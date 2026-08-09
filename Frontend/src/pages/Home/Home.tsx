@@ -76,7 +76,7 @@ function Home () {
             }
         }
         fetchProducts()
-    },[getProducts,state.page,category])
+    },[getProducts,state.page,category,loading])
 
     const handleViewMore = () => {
         dispatch({type:"page",payload:state.page+1})

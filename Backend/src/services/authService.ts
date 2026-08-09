@@ -5,6 +5,7 @@ import bcrypt from "bcrypt"
 import { generateToken } from "../utils/generateTokens"
 import { Request } from "express"
 import jwt from "jsonwebtoken"
+import cartModel from "../models/cartSchema"
 const salt = 10
 
 
@@ -22,7 +23,13 @@ const signupService = async (data:User) => {
         email:data.email,
         password:hashPassword,
     })
+    const newCart = new cartModel({
+        userId:newUser._id,
+        items:[]
+    })
+
     await newUser.save()
+    await newCart.save()
 }
 
 
