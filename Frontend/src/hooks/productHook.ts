@@ -35,14 +35,21 @@ export const useGetAllUserProducts = ()=>{
 
 export const useGetProducts = ()=>{
     return useCallback(async (page:number,limit:number,filter:string)=>{
-        const response = await axios.get(`http://localhost:5000/auth/getProducts?limit=${limit}&page=${page}&filter=${filter}`,{withCredentials:true})
+        const response = await axios.get(`http://localhost:5000/auth/getProducts?limit=${limit}&page=${page}&filter=${filter}`)
         return response.data
     },[])
 }
 
 export const useGetProduct = ()=>{
-    return useCallback(async (id:string,details?:boolean)=>{
-        const response = await axios.get(`http://localhost:5000/auth/getProduct/${id}?details=${details}`,{withCredentials: true})
+    return useCallback(async (id:string)=>{
+        const response = await axios.get(`http://localhost:5000/auth/getProduct/${id}`,{withCredentials: true})
+        return response.data
+    },[])
+}
+
+export const useGetProductDetails = ()=>{
+    return useCallback(async (id:string)=>{
+        const response = await axios.get(`http://localhost:5000/auth/getProductDetails/${id}`)
         return response.data
     },[])
 }

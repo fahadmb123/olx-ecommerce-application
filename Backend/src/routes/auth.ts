@@ -2,7 +2,7 @@ import express from "express"
 import { checkAuth, login, logout, signup } from "../controllers/auth/controller"
 import { loginSchema, signupSchema } from "../validation/authSchema"
 import validate from "../middleware/validate"
-import {addProduct, deleteProduct, editProduct, getProduct, getProducts, getUserProducts} from "../controllers/product/productController"
+import {addProduct, deleteProduct, editProduct, getProduct, getProductDetails, getProducts, getUserProducts} from "../controllers/product/productController"
 import { productSchema } from "../validation/productSchema"
 import upload from "../middleware/upload"
 import authenticate from "../middleware/authenticate"
@@ -20,13 +20,16 @@ Router.post("/editProduct/:id",authenticate,upload.single("image"),validate(prod
 Router.get("/checkAuth",checkAuth)
 Router.get("/logout",logout)
 Router.get("/getUserProducts",authenticate,getUserProducts)
-Router.get("/getProducts",authenticate,getProducts)
+Router.get("/getProducts",getProducts)
 Router.get("/getProduct/:id",authenticate,getProduct)
 Router.get("/deleteProduct/:id",authenticate,deleteProduct)
 Router.get("/addToCart/:id",authenticate,addToCart)
 Router.get("/getCartProducts",authenticate,getCartProducts)
 Router.get("/getCheckoutCartProducts",authenticate,getCheckoutCartProducts)
 Router.get("/placeCartProducts",authenticate,placeCartProducts)
+
+Router.get("/getProductDetails/:id",getProductDetails)
+
 
 Router.delete("/remCart/:id",authenticate,remCart)
 

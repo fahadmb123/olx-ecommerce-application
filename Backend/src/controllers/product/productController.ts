@@ -7,6 +7,7 @@ import verifyToken from "../../utils/verifyToken";
 
 
 
+
 export const addProduct = async (req:Request,res:Response,next:NextFunction) => {
     try {
         
@@ -112,17 +113,28 @@ export const getProducts = async (req:Request,res:Response,next:NextFunction) =>
 export const getProduct = async (req:Request,res:Response,next:NextFunction) => {
     try {
         const {id} = req.params
-        const details = req.query.details
         const token = req.cookies.token
         const decoded = verifyToken(token)
        
-        let product
-        if (details) {
-            product = await productModel.findOne({_id:id})
-        }else {
-            product = await productModel.findOne({ userId: decoded.userId ,_id:id})
-        }
-        console.log("Calleldddd")
+        const product = await productModel.findOne({ userId: decoded.userId ,_id:id})
+
+        return res.status(200).json({
+            product
+        })
+    } catch (err) {
+        next(err)
+    }
+}
+
+
+
+
+export const getProductDetails = async (req:Request,res:Response,next:NextFunction) => {
+    try {
+        const {id} = req.params
+       
+        const product = await productModel.findOne({_id:id})
+
         
         return res.status(200).json({
             product

@@ -150,24 +150,24 @@ function AddEdit() {
                         <div className="add-edit-form-group">
                             <label>Category</label>
 
-                            <select {...register("category")} defaultValue="">
-                                <option selected value="Mobile">
+                            <select {...register("category")}>
+                                <option selected value="mobile">
                                     Mobile
                                 </option>
 
-                                <option value="Laptop">
+                                <option value="laptop">
                                     Laptop
                                 </option>
 
-                                <option value="Electronics">
+                                <option value="electronics">
                                     Electronics
                                 </option>
 
-                                <option value="Furniture">
+                                <option value="furniture">
                                     Furniture
                                 </option>
 
-                                <option value="Vehicle">
+                                <option value="vehicle">
                                     Vehicle
                                 </option>
                             </select>

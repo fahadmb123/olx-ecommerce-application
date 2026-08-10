@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./ProductDetails.css";
-import { useAddToCart, useGetProduct } from "../../hooks/productHook";
+import { useAddToCart, useGetProductDetails } from "../../hooks/productHook";
 import { toast } from "react-toastify";
 import type { AxiosError } from "axios";
 import type { ErrorResponse } from "../../types/auth/authTypes";
@@ -12,7 +12,7 @@ function ProductDetails() {
     const [loading,setLoading] = useState(false)
     const [product,setProduct] = useState<Product | null>(null)
     const addToCart = useAddToCart()
-    const getProduct = useGetProduct()
+    const getProduct = useGetProductDetails()
     const {id} = useParams()
     
     const addCart = async () => {
@@ -34,7 +34,7 @@ function ProductDetails() {
         const work = async ()=>{
             try {
                 setLoading(true)
-                const data = await getProduct(id as string,true)
+                const data = await getProduct(id as string)
                 
                 setProduct(data.product)
                 setLoading(false)
