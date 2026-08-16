@@ -16,7 +16,7 @@ dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
 const allowedOrigins = [
     "http://localhost:5173",
-    "https://olx-ecommerce-application-78mc.vercel.app/"
+    "https://olx-ecommerce-application-78mc.vercel.app"
 ]
 
 app.use(cors({
