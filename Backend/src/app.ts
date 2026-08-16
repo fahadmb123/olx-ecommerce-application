@@ -14,9 +14,13 @@ console.log(dns.getServers());
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
 
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://olx-ecommerce-application.vercel.app/"
+]
 
 app.use(cors({
-    origin:"https://olx-ecommerce-application.vercel.app/",
+    origin:allowedOrigins,
     credentials:true
 }))
 app.use(express.json())
